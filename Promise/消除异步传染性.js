@@ -20,6 +20,7 @@ function run(func) {
     oldFetch = fetch // 记录原始的缓存，发送原始请求
   let i = 0
 
+  // 重写 fetch，在执行到 fetch('./data.js') 时，使用的就是这个重写的fetch
   window.fetch = (...args) => {
     // 判断缓存是否存在
     if (catchs[i]) {
