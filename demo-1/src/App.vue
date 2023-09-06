@@ -19,7 +19,7 @@ const handleSelect = (key, keyPath) => {
     <el-sub-menu index="2">
       <template #title>学海无涯</template>
       <el-menu-item index="item-1">拼音标注</el-menu-item>
-      <el-menu-item index="item-2">item two</el-menu-item>
+      <el-menu-item index="item-2">标签页间通信</el-menu-item>
       <el-menu-item index="item-3">item three</el-menu-item>
       <el-sub-menu index="item-4">
         <template #title>item four</template>
