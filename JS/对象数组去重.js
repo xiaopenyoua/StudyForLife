@@ -9,18 +9,18 @@ let arr = [
 
 const newArr = [...arr]
 
+const isObject = (v) => typeof v === 'object' && v != null
+
 // 对象数组去重
 
 for (let i = 0; i < newArr.length; i++) {
   for (let j = i + 1; j < newArr.length; j++) {
-    if (Object.keys(newArr[i]).length === Object.keys(newArr[j]).length) {
+    if (equals(newArr[i], newArr[j])) {
       newArr.splice(j, 1)
       j--
     }
   }
 }
-
-const isObject = (v) => typeof v === 'object' && v != null
 
 function equals(v1, v2) {
   // 有一个不是对象就当常量来比较
@@ -36,7 +36,7 @@ function equals(v1, v2) {
   const keys1 = Object.keys(v1)
   const keys2 = Object.keys(v2)
 
-  if (keys1 != keys2) {
+  if (keys1.length != keys2.length) {
     return false
   }
 
