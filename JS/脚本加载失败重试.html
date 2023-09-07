@@ -1,0 +1,73 @@
+<!-- 利用事件委托的原理，在 window 上监听 error 事件，然后判断是否是 script 标签引起的错误。 -->
+<!-- https://www.jianshu.com/p/9f3a48b4d754 -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>脚本加载失败</title>
+    <!-- 因为当前面的 JS 失败的时候，error 事件还没有注册，所以应该在最上方。放到 body 里面也可以，就是要放到 要加载的js 之前 -->
+    <script>
+      const hosts = ['www.baidu.com', 'wwww.aili.conm', 'www.sfhsi,net'], // 多个替换域名
+        map = new Map() // 记录不同的js 替换域名到哪一个了
+      window.addEventListener(
+        'error',
+        (e) => {
+          // error 会捕获各种报错
+          if (e.target.tagName === 'SCRIPT' && e instanceof Event) {
+            console.log(e)
+            const url = new URL(e.target.src)
+            if (!map.has(url.pathname)) {
+              map.set(url.pathname, 0) //
+            }
+            const index = map.get(url.pathname)
+            console.log(index, url.pathname)
+            if (index > hosts.length - 1) return
+            url.host = hosts[index]
+
+            if (e.target.defer || e.target.async) {
+              // 这种方式没法保证加载顺序
+              const script = document.createElement('script')
+              script.src = url.href
+              document.body.appendChild(script) // 插到末尾
+            } else {
+              // 控制js加载顺序的，document.write 事件会阻塞后续事件执行
+              // 不考虑保持顺序的话，就用 document.body.insertBefore 插入一个 script 元素
+              document.write(`\<script src="${url.href}">\<\/script>`)
+            }
+
+            // 尝试完后指向下一个
+            map.set(url.pathname, index + 1)
+          }
+        },
+        true //(捕获) 第三个参数是个布尔值用于描述事件是 冒泡 还是 捕获。该参数是可选的。事件有没有冒泡阶段，可以从 e.bubbles (true ==》有，false ==》 没有)
+      )
+
+      window.addEventListener('DOMContentLoaded', (e) => {
+        console.log(e, 'DOMContentLoaded')
+      })
+    </script>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@next"></script> -->
+    <script defer src="https://cdn1.jsdelivr.net/npm/vue"></script>
+    <script async src="https://cdn1.jsdelivr.net/react/wwwww"></script>
+    <script src="https://cdn1.jsdelivr.net/react555/s3fjhs"></script>
+    <script src="https://cdn14.jsdelivr.net/yjgg/bbbbbb"></script>
+
+    <div>
+      defer 和 async
+      属性来提高网页的性能。这两个属性都可以使JS脚本的加载和运行不阻塞网页的其他内容。<br />
+      defer 属性可以使JS脚本在 DOMContentLoaded 事件之前执行 <br />
+      async 属性可以使JS脚本在加载完成后立即执行。<br />
+      <a href="https://blog.csdn.net/chenrongwei92/article/details/120691770"
+        >https://blog.csdn.net/chenrongwei92/article/details/120691770</a
+      >
+      <hr />
+      如果document.write()在 DOMContentLoaded 或 load 事件的回调函数中 或
+      执行之前，则不管是在head中，body中，同步的js中，异步的js中，都会先清空文档（自动调用document.open()），然后运行document.write()，参数写在body内容的开头
+    </div>
+  </body>
+</html>
