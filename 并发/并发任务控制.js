@@ -1,4 +1,4 @@
-// 字节
+// 字节跳动
 
 // delay 延时函数
 function timeout(time) {
