@@ -20,7 +20,7 @@ function arrange(name) {
       return new Promise((resolve) => {
         // 这里没有写 setTimeout(() => {})
         // 因为resolve本身就是一个 resolve: (value: any) => void 箭头函数
-        setTimeout(resolve, time * 1000)
+        setTimeout(resolve(), time * 1000)
       })
     })
 
