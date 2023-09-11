@@ -54,4 +54,43 @@ function equals(v1, v2) {
   return true
 }
 
+
+const arr1 = [1, [2, 3], { name: 'John' }];
+const arr2 = [1, [2, 3], { name: 'John' }];
+const arr3 = [1, [2, 3], { name: 'Jane' }];
+
+console.log(equals(arr1, arr2)); // true
+console.log(equals(arr1, arr3)); // false
+
 console.log(newArr)
+
+
+const obj1 = {
+  name: 'John',
+  age: 30,
+  address: {
+    street: '123 Main St',
+    city: 'New York'
+  }
+};
+
+const obj2 = {
+  name: 'John',
+  age: 30,
+  address: {
+    street: '123 Main St',
+    city: 'New York'
+  }
+};
+
+const obj3 = {
+  name: 'Jane',
+  age: 25,
+  address: {
+    street: '456 Park Ave',
+    city: 'Los Angeles'
+  }
+};
+
+console.log(equals(obj1, obj2)); // true
+console.log(equals(obj1, obj3)); // false
