@@ -1,4 +1,5 @@
-// 字节跳动
+// 字节跳动 ---
+//腾讯：  https://github.com/pro-collection/interview-question/issues/385
 
 // delay 延时函数
 function timeout(time) {
