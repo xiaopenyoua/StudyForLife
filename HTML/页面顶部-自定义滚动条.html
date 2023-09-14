@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>自定义滚动进度条样式</title>
+    <style>
+      #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #f00; /* 自定义进度条颜色 */
+        opacity: 0.7; /* 自定义进度条透明度 */
+        z-index: 9999; /* 确保进度条显示在最顶层 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scroll-progress"></div>
+
+    <!-- 假设有很长的内容 -->
+    <div style="height: 2000px"></div>
+
+    <script>
+      var scrollProgress = document.getElementById('scroll-progress')
+      var requestId
+
+      function updateScrollProgress() {
+        var scrollTop =
+          document.documentElement.scrollTop || document.body.scrollTop
+        // 元素的内容垂直滚动的像素数。
+        var scrollHeight =
+          document.documentElement.scrollHeight || document.body.scrollHeight // 元素内容高度的度量，包括由于溢出导致的视图不可见内容。
+
+        var progress = (scrollTop / (scrollHeight - window.innerHeight)) * 100
+        scrollProgress.style.width = progress + '%'
+
+        requestId = null
+      }
+
+      // requestAnimationFrame 解释
+      // https://juejin.cn/post/7202785660666495037
+      function scrollHandler() {
+        if (!requestId) {
+          requestId = requestAnimationFrame(updateScrollProgress)
+        }
+      }
+
+      window.addEventListener('scroll', scrollHandler)
+    </script>
+  </body>
+</html>
