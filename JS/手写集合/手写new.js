@@ -19,7 +19,7 @@ function myNew(Fn, ...args) {
   // let obj = Object.create(Fn.prototype) // 等价于上面两步
 
   // 改变this指向，调用构造函数，为空对象添加属性和方法，获得构造函数的返回值；
-  // 执行构造函数，让this指向obj，使其具有构造函数的属性
+  // f.call(o)其原理就是先通过 o.m = f 将 f作为o的某个临时属性m存储，然后执行m，执行完毕后将m属性删除
   let res = Fn.call(obj, ...args)
 
   // 判断返回值类型，如果为引用类型，则返回返回值；如果为简单数据类型，则返回该空对象。

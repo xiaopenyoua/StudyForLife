@@ -21,7 +21,6 @@ for (const iterator of obj) {
 }
 
 // 数组扁平化
-
 function* iteArr(arr) {
   if (Array.isArray(arr)) {
     for (const i in arr) {
