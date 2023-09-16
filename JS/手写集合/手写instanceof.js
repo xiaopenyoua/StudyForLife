@@ -13,7 +13,7 @@ function myInstanceOf(left, right) {
     proto = proto.__proto__
 
     if (proto === null) {
-      break
+      return false
     }
   }
 
