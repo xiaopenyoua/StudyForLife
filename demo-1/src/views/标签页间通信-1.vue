@@ -55,10 +55,10 @@ async function processHandle(handle) {
   handle.children = []
 
   // 得到异步迭代器
-  let iter = handle.entries()
+  let iterator = handle.entries()
 
-  for await (let iterator of iter) {
-    handle.children.push(await processHandle(iterator[1]))
+  for await (let iter of iterator) {
+    handle.children.push(await processHandle(iter[1]))
   }
 
   return handle

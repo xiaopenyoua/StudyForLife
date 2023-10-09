@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="send"> 接收 </el-button>
+    <el-button> 接收 </el-button>
   </div>
 </template>
 
