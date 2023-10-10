@@ -29,26 +29,46 @@ function asyncFlowControl(tasks, limit) {
 
         return
       }
-      let task = tasks[index]
-      const currentIndex = index // 保存当前下标
 
-      index++
-      isRunning++
+      while (isRunning < limit && index < tasks.length) {
+        const task = tasks[index]
+        isRunning++
 
-      task()
-        .then((result) => {
-          results[currentIndex] = result
-        })
-        .catch((error) => {
-          reject(error)
-        })
-        .finally(() => {
-          isRunning--
-          _run() // 递归执行下一个任务
-        })
+        const currentIndex = index // 保存当前下标
+        index++
+        task()
+          .then((result) => {
+            results[currentIndex] = result
+          })
+          .catch((error) => {
+            reject(error)
+          })
+          .finally(() => {
+            isRunning--
+            _run()
+          })
+      }
+      // let task = tasks[index]
+      // const currentIndex = index // 保存当前下标
 
-      _run() // 递归执行下一个任务
+      // index++
+      // isRunning++
+
+      // task()
+      //   .then((result) => {
+      //     results[currentIndex] = result
+      //   })
+      //   .catch((error) => {
+      //     reject(error)
+      //   })
+      //   .finally(() => {
+      //     isRunning--
+      //     _run() // 递归执行下一个任务
+      //   })
+
+      // _run() // 递归执行下一个任务
     }
+
     _run()
   })
 }

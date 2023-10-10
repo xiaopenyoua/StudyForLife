@@ -25,7 +25,7 @@ function run(func) {
     // 判断缓存是否存在
     if (caches[i]) {
       if (caches[i].status === 'fulfilled') {
-        return caches[i].values
+        return caches[i].value
       } else if (caches[i].status === 'rejected') {
         throw caches[i].error
       }

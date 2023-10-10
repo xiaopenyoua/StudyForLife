@@ -67,9 +67,9 @@ Function.prototype.myBind = function (context) {
 
   let bound = function () {
     // 这里的this 表示调用者 bound
-    let innerArgs = Array.from(arguments).slice(1)
+    let bindArgs = Array.from(arguments).slice(1)
     // 柯里化
-    let finalArgs = args.concat(innerArgs)
+    let finalArgs = args.concat(bindArgs)
     // 这里区分里 返回的函数怎么调用
     // 1. 直接调用
     // 2. 通过 new
@@ -79,12 +79,12 @@ Function.prototype.myBind = function (context) {
       // 当 bind 返回的函数作为构造函数的时候，bind绑定的this会失效，但是其他的参数依然有效
       return new that(...finalArgs)
     } else {
-      return that.myApply(context, finalArgs)
+      return that.myApply(context || window, finalArgs)
     }
   }
   // 构造函数 bound 的原型 指向 this.prototype
   // new调用绑定函数时，绑定函数的prototype属性存在与返回的实例对象的原型链上
-  // 这里和 obj.__proto__ = Fn.prototype 是一个意思
+  // 这里和 obj.__proto__ = Fn.prototype 是一个意思 (继承构造函数的原型)
   bound.prototype = that.prototype
   return bound
 }

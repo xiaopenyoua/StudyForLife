@@ -57,7 +57,7 @@ function equals(v1, v2) {
 
 const arr1 = [1, [2, 3], { name: 'John' }];
 const arr2 = [1, [2, 3], { name: 'John' }];
-const arr3 = [1, [2, 3], { name: 'Jane' }];
+const arr3 = [1, [2, 3], { name: 'LiBai' }];
 
 console.log(equals(arr1, arr2)); // true
 console.log(equals(arr1, arr3)); // false
