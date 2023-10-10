@@ -24,6 +24,6 @@ let str1 = 'string',
   str2 = new String('string'),
   arr = ['string']
 
-console.log(myInstanceOf(str1, String))
+console.log(myInstanceOf(str1, String)) // str1只是一个以string为数据类型的值，但并不属于String对象的实例
 console.log(myInstanceOf(str2, String))
 console.log(myInstanceOf(arr, Array))
