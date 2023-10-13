@@ -1,4 +1,4 @@
-//简单模拟Symbol属性
+//简单模拟Symbol属性 Symbol属于 es6 新增的，如果用es5 就用 Date.now().toString(36); https://blog.csdn.net/weixin_42675177/article/details/129284330
 function jawilSymbol(obj) {
   var unique_proper = '00' + Math.random()
   if (obj.hasOwnProperty(unique_proper)) {
@@ -85,7 +85,10 @@ Function.prototype.myBind = function (context) {
   // 构造函数 bound 的原型 指向 this.prototype
   // new调用绑定函数时，绑定函数的prototype属性存在与返回的实例对象的原型链上
   // 这里和 obj.__proto__ = Fn.prototype 是一个意思 (继承构造函数的原型)
-  bound.prototype = that.prototype
+  // 箭头函数没有 prototype
+  if (that.prototype) {
+    bound.prototype = that.prototype
+  }
   return bound
 }
 
