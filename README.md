@@ -32,13 +32,15 @@
 
 16. [如何避免全局样式污染？](https://github.com/pro-collection/interview-question/issues/422)
 
+17. [CSS Module 是什么？](https://github.com/pro-collection/interview-question/issues/589)
+
 ---
 
 # JavaScript
 
 1. [谈谈对原型链的理解。](https://github.com/pro-collection/interview-question/issues/32)
 
-2. js 如何实现继承？
+2. [js 如何实现继承？](https://github.com/pro-collection/interview-question/issues/31)
 
 3. js 有哪些数据类型？
 
