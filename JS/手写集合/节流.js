@@ -6,8 +6,12 @@ function throttlo(fn, wait) {
     args,
     remaining
 
+  // 普通函数的this 指向 window
+
   return function () {
     let now = Date.now()
+
+    // 这里的this 主要看 返回的匿名函数是作为谁的回调函数，this 就指向谁
     context = this
     args = arguments
     remaining = wait - (now - previous) // 剩余的还需要等待的时间
@@ -28,3 +32,10 @@ function throttlo(fn, wait) {
     }
   }
 }
+
+function test() {
+  console.log('test')
+  console.log(this)
+}
+
+throttlo(test(), 1000)()
