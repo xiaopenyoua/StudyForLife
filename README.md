@@ -70,7 +70,7 @@
 
 16. [谈谈对 js 事件循环的理解？](https://github.com/pro-collection/interview-question/issues/142)
 
-17. 谈谈对 promise 理解？
+17. [谈谈对 promise 理解？](https://github.com/febobo/web-interview/blob/master/docs/es6/promise.md)
 
 18. [手写 Promise。](https://github.com/pro-collection/interview-question/issues/57)
 
