@@ -76,9 +76,9 @@
 
 19. [实现 Promise.all 方法。](https://github.com/pro-collection/interview-question/issues/107)
 
-20. Typescript 中 type 和 interface 的区别是什么？
+20. [Typescript 中 type 和 interface 的区别是什么？](https://github.com/pro-collection/interview-question/issues/273)
 
-21. 讲讲 Typescript 中的泛型？
+21. [讲讲 Typescript 中的泛型？](https://github.com/febobo/web-interview/blob/master/docs/typescript/generic.md)
 
 22. Typescript 如何实现一个函数的重载？
 
@@ -94,22 +94,40 @@
 
 28. 如何实现数组去重？
 
+29. [如何将JavaScript代码解析成抽象语法树(AST)](https://github.com/pro-collection/interview-question/issues/357)
+
 ---
 
 # Vue
 
-讲讲 Vuex 的使用方法。
-讲讲 Vue 双向绑定原理。
+[Redux 和 Vuex 的设计思想是什么](https://github.com/pro-collection/interview-question/issues/201)
+
+[讲讲 Vue2 双向绑定原理。](https://blog.csdn.net/qq_43574741/article/details/119326529)
+
+讲讲 Vue3 双向绑定原理。
+
+
 mvvm 和 mvc 区别是什么？
-Vue 组件间通信方式有哪些？
+
+[Vue 组件间通信方式有哪些？](https://github.com/febobo/web-interview/blob/master/docs/vue/communication.md)
+
 computed 和 watch 区别是什么？
+
 v-for 和 v-if 同时使用有问题吗？
+
 讲讲前端路由原理。比较一下 history 和 hash 这两种路由。
+
 讲讲 Vue 的虚拟 DOM，原理，好处是什么？相对于手动操作 DOM，性能更好吗？
+
 说说 Vue 的 keep-alive 使用及原理。
+
 Vue 父子组件生命周期触发顺序是怎样的？
+
 Vue.nextTick 的实现？
-讲讲 Vue diff 算法。
+
+[vu2 和 vue3 有什么区别？](https://github.com/febobo/web-interview/blob/master/docs/vue/vue3_vue2.md)
+
+[vu2 vu3 diff](https://juejin.cn/post/7092068900589797413)
 
 ---
 
@@ -128,7 +146,9 @@ React 的 setState 是同步的还是异步的？
 
 ---
 
-# 工程化
+# [工程化](https://github.com/febobo/web-interview/tree/master/docs/webpack)
+
+[webpack热更新](https://github.com/febobo/web-interview/blob/master/docs/webpack/HMR.md)
 
 webpack 性能优化有哪些方法？
 webpack 的 loader 和 plugin 区别是什么？常用的 plugin 和 loader 有哪些？
@@ -140,7 +160,9 @@ webpack 构建流程是什么？
 # 性能优化
 
 前端页面性能如何优化？
-讲讲回流和重绘的区别，如何避免回流和重绘？
+
+[讲讲回流和重绘的区别，如何避免回流和重绘？](https://github.com/febobo/web-interview/blob/master/docs/css/layout_painting.md)
+
 浏览器渲染一帧都做了什么？
 
 ---
