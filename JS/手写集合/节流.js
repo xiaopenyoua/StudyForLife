@@ -20,15 +20,16 @@ function throttlo(fn, wait) {
       fn.apply(context, args)
       previous = now // 重置 “上一次执行” 的时间
     } else {
-      if (!time) {
-        time = setTimeout(() => {
-          fn.apply(context, args)
-          time = null
-          previous = Date.now() // 重置 “上一次执行” 的时间
-        }, remaining) //等待还需等待的时间
-      } else {
+      // 否则继续等待，结尾执行一次
+      if (time) {
         clearTimeout(time)
       }
+
+      time = setTimeout(() => {
+        fn.apply(context, args)
+        time = null
+        previous = Date.now() // 重置 “上一次执行” 的时间
+      }, remaining) //等待还需等待的时间
     }
   }
 }
