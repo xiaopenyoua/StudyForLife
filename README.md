@@ -54,7 +54,7 @@
 
 8. 防抖节流的概念？实现防抖和节流。[节流](https://github.com/pro-collection/interview-question/issues/53) / [防抖](https://github.com/pro-collection/interview-question/issues/51)
 
-9. [深拷贝、浅拷贝的区别？如何实现深拷贝和浅拷贝？](https://github.com/pro-collection/interview-question/issues/40)
+9. [深拷贝、浅拷贝的区别？如何实现深拷贝和浅拷贝？](https://github.com/febobo/web-interview/blob/master/docs/JavaScript/copy.md)
 
 10. [对比 一下 var、const、let。](https://blog.csdn.net/xiewenhui111/article/details/113133330)
 
@@ -64,7 +64,7 @@
 
 13. 使用 new 创建对象的过程是什么样的？
 
-14. [this 指向系列问题。](https://github.com/pro-collection/interview-question/issues/519) / [哪些原因会导致js里this指向混乱?](https://github.com/pro-collection/interview-question/issues/388)
+14. [this 指向系列问题。](https://github.com/pro-collection/interview-question/issues/519) / [哪些原因会导致js里this指向混乱?](https://github.com/pro-collection/interview-question/issues/388) -- [111](https://juejin.cn/post/6944707409596121102) --- [222](https://juejin.cn/post/7041055543984652319)
 
 15. [谈谈对闭包的理解？什么是闭包？闭包有哪些应用场景？闭包有什么缺点？如何避免闭包？](https://github.com/pro-collection/interview-question/issues/37)
 
