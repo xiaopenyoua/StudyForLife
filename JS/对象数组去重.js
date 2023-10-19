@@ -9,7 +9,7 @@ let arr = [
 
 const newArr = [...arr]
 
-const isObject = (v) => typeof v === 'object' && v != null
+const isObject = (v) => typeof v === 'object' && v !== null
 
 // 对象数组去重
 

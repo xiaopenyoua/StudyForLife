@@ -1,3 +1,5 @@
+// Hash值，用来记录已经克隆过的对象，避免无限递归
+// 用Map在垃圾回收机制中为强引用;即使cloneObject = null，Map中还是有对cloneObject原堆地址（内存地址索引）引用
 function deepClone(obj, hash = new WeakMap()) {
   if (obj === null || obj === undefined) {
     // 如果是null或者undefined我就不进行拷贝操作
@@ -19,10 +21,13 @@ function deepClone(obj, hash = new WeakMap()) {
 
   // 是对象的话就要进行深拷贝
   if (hash.has(obj)) {
+    // 如果对象已经存在Hash表，则直接返回Hash表中该对象的克隆副本，避免重复克隆
     return hash.get(obj)
   }
 
   let cloneObj = new obj.constructor() // 找到的是所属类原型上的constructor,而原型上的 constructor指向的是当前类本身(构造函数)
+
+  // 将对象与目标对象存入哈希表中，建立对象到目标对象的映射关系
   hash.set(obj, cloneObj)
 
   for (let key in obj) {
