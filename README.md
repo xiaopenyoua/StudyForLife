@@ -110,7 +110,27 @@
 
 [Vue 组件间通信方式有哪些？](https://github.com/febobo/web-interview/blob/master/docs/vue/communication.md)
 
+---
+
 [响应式为何要从 Object.defineProperty 改为 proxy](https://github.com/pro-collection/interview-question/issues/595)
+
+> 发布订阅模式： 订阅者向事件调度中心（PubSub）注册（subscribe）监听，当事件调度中心（PubSub）发布通知时（publish），订阅者的监听事件将会被触发。
+>观察者模式： 定义了对象之间 一对多 的依赖关系，它只有两个角色，分别是观察的目标对象 Subject 和观察者对象 Observer，当一个 目标对象 的状态发生改变时，所有依赖于它的 观察者对象 都会收到通知。
+
+**整体简单的说就是，使用发布订阅模式中的特殊的一种 ---- `观察者模式`，被观察者也就是目标（数据对象），观察者（Watcher）其实就是包含组件重新渲染的 `渲染 Watcher`，用来更新View。**
+
+**首先通过 `Object.defineProperty()` 来劫持各个属性的 `setter`，`getter`，为每一个对象属性都添加的 `get` 与 `set` 方法, 并且在每个属性的 `get()` 中 `new` 了一个 `dep` 收集当前的 `渲染 Watcher`（因为这个属性值可能会被多个View绑定）,在 `set` 方法里通知每个观察者 `渲染 Watcher` 执行 `update` 方法【`Vue 在 new 渲染 Watcher的时候会将组件挂载更新的方法(updateComponent)传入，存储在渲染watcher中。触发渲染watcher的update方法时实际上是触发这个组件挂载更新方法, 也就是在属性被修改时触发了set方法，而这个set方法会将依赖当前属性的页面重新渲染，从而达到数据驱动的效果。`】**
+
+
+实现mvvm的双向绑定，是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。就必须要实现以下几点：(通过 getter 来收集视图中的依赖，在 setter 的时候更新视图)
+1. 实现一个数据监听器Observer，能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者
+  - **在get中new了一个 dep 收集当前的渲染 Watcher**
+  - **在set方法中遍历收集的渲染Watcher 执行 update 方法**
+2. 实现一个指令解析器Compile，对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数
+3. 实现一个Watcher，作为连接Observer和Compile的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图
+  ***Vue 在 new 渲染 Watcher的时候会将组件挂载更新的方法(updateComponent)传入，存储在渲染watcher中。触发渲染watcher的update方法时实际上是触发这个组件挂载更新方法, 也就是在属性被修改时触发了set方法，而这个set方法会将依赖当前属性的页面重新渲染，从而达到数据驱动的效果。***
+
+---
 
 [Vue.nextTick 的实现？](https://github.com/pro-collection/interview-question/issues/124)
 
