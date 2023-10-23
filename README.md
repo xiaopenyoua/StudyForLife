@@ -80,9 +80,9 @@
 
 21. [讲讲 Typescript 中的泛型？](https://github.com/febobo/web-interview/blob/master/docs/typescript/generic.md)
 
-22. Typescript 如何实现一个函数的重载？
+22. [Typescript 如何实现一个函数的重载？](https://juejin.cn/post/7201883287938007096)
 
-23. CmmonJS 和 ESM 区别？
+23. [CmmonJS 和 ESM 区别？](https://segmentfault.com/a/1190000043720379)
 
 24. [柯里化是什么？有什么用？怎么实现？](https://github.com/pro-collection/interview-question/issues/361)
 
