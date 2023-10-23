@@ -297,3 +297,10 @@ http 有哪些方法？
 [http2 多路复用是什么, 原理是什么](https://github.com/pro-collection/interview-question/issues/529)
 
 [http1.1 的 keep-alive 和 http2 的多路复用 有什么区别](https://github.com/pro-collection/interview-question/issues/597)
+
+
+## 问题
+
+1. 看源码很费劲，也不是每行都能看懂，即使做了笔记，后面也会出现看不懂的情况，这种有什么好的办法解决？
+
+2. 看过源码或者学习别人看源码的笔记，原理是懂了，但是时间久了，源码忘了，原理也会越来越模糊，这种有什么好的办法解决？
