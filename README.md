@@ -112,7 +112,7 @@
 
 ---
 
-[响应式为何要从 Object.defineProperty 改为 proxy](https://github.com/pro-collection/interview-question/issues/595)
+[响应式为何要从 Object.defineProperty 改为 proxy](https://github.com/pro-collection/interview-question/issues/595) ---- [补充](https://juejin.cn/post/6998165868332990471)
 
 > 发布订阅模式： 订阅者向事件调度中心（PubSub）注册（subscribe）监听，当事件调度中心（PubSub）发布通知时（publish），订阅者的监听事件将会被触发。
 >观察者模式： 定义了对象之间 一对多 的依赖关系，它只有两个角色，分别是观察的目标对象 Subject 和观察者对象 Observer，当一个 目标对象 的状态发生改变时，所有依赖于它的 观察者对象 都会收到通知。
