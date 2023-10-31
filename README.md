@@ -226,13 +226,19 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 - 通过`webpack-dev-server`创建两个服务器：提供静态资源的服务（express）和Socket服务
 - `express server` 负责直接提供静态资源的服务（打包后的资源直接被浏览器请求和解析）
 - `socket server` 是一个 websocket 的长连接，双方可以通信
-- 当 `socket server` 监听到对应的模块发生变化时，会生成两个文件.json（manifest文件）和.js文件（update chunk）【`manifest`（包含了 hash 和 chundId ，用来说明变化的内容）和 `chunk.js` 模块】
+- 当 `webpack` 监听到文件变化对文件重新编译打包，编译生成唯一的hash值，这个hash 值用来作为下一次热更新的标识,`socket server`会生成两个两个补丁文件: .json（manifest文件）和.js文件（update chunk）【`manifest`（包含了 hash 和 chundId ，用来说明变化的内容）和 `chunk.js` 模块】
 - 通过长连接，socket server 可以直接将这两个文件主动发送给客户端（浏览器）
 - 浏览器拿到两个新的文件后，通过`HMR runtime`机制，加载这两个文件，并且针对修改的模块进行更新
 
 [webpack 性能优化有哪些方法？](https://github.com/febobo/web-interview/issues/132) --------- [补充](https://cchroot.github.io/interview/pages/interview%20notes/Webpack%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html#%E4%BC%98%E5%8C%96%E6%96%B9%E5%BC%8F%E6%80%BB%E8%A7%88)
 
-[webpack 的 loader 和 plugin 区别是什么？](https://github.com/febobo/web-interview/issues/125)常用的 [plugin](https://github.com/pro-collection/interview-question/issues/594) 和 [loader](https://github.com/pro-collection/interview-question/issues/593) 有哪些？
+[webpack 的 loader 和 plugin 区别是什么？](https://github.com/febobo/web-interview/issues/125)常用的 [plugin](https://juejin.cn/post/6906089118447435784) 和 [loader](https://github.com/pro-collection/interview-question/issues/593) 有哪些？
+
+- plugin
+  - ProvidePlugin - 自动加载模块，使模块在使用时可以直接使用对应的全局变量，无需引入。
+  - CompressionWebpackPlugin - 使用 gzip 或其他压缩算法对文件进行压缩，减小文件大小，加快网络传输速度。
+  - ImageminWebpackPlugin - 压缩图片资源，减小文件大小，提升加载速度。
+  - HtmlWebpackPlugin - 根据模板文件自动生成 html 文件，并且将输出文件JS自动插入到 html 中，免去了需要手动更新版本号的烦恼。
 
 [webpack 构建流程是什么？](https://github.com/pro-collection/interview-question/issues/283)
 
