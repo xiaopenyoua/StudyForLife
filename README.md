@@ -223,6 +223,13 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 [webpack热更新](https://github.com/febobo/web-interview/blob/master/docs/webpack/HMR.md)
 
+- 通过`webpack-dev-server`创建两个服务器：提供静态资源的服务（express）和Socket服务
+- `express server` 负责直接提供静态资源的服务（打包后的资源直接被浏览器请求和解析）
+- `socket server` 是一个 websocket 的长连接，双方可以通信
+- 当 `socket server` 监听到对应的模块发生变化时，会生成两个文件.json（manifest文件）和.js文件（update chunk）【`manifest`（包含了 hash 和 chundId ，用来说明变化的内容）和 `chunk.js` 模块】
+- 通过长连接，socket server 可以直接将这两个文件主动发送给客户端（浏览器）
+- 浏览器拿到两个新的文件后，通过`HMR runtime`机制，加载这两个文件，并且针对修改的模块进行更新
+
 [webpack 性能优化有哪些方法？](https://github.com/febobo/web-interview/issues/132) --------- [补充](https://cchroot.github.io/interview/pages/interview%20notes/Webpack%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html#%E4%BC%98%E5%8C%96%E6%96%B9%E5%BC%8F%E6%80%BB%E8%A7%88)
 
 [webpack 的 loader 和 plugin 区别是什么？](https://github.com/febobo/web-interview/issues/125)常用的 [plugin](https://github.com/pro-collection/interview-question/issues/594) 和 [loader](https://github.com/pro-collection/interview-question/issues/593) 有哪些？
@@ -283,7 +290,43 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 [HTTP 和 HTTPS 的区别](https://github.com/febobo/web-interview/issues/134)
 
-[https 原理是什么？为什么可以保证安全性？](https://github.com/febobo/web-interview/issues/135)
+- HTTPS是HTTP协议的安全版本，HTTP协议的数据传输是明文的，是不安全的，HTTPS使用了SSL/TLS协议进行了加密处理，相对更安全
+- HTTP 和 HTTPS 使用连接方式不同，默认端口也不一样，HTTP是80，HTTPS是443
+- HTTPS 由于需要设计加密以及多次握手，性能方面不如 HTTP
+- HTTPS需要SSL，SSL 证书需要钱，功能越强大的证书费用越高
+
+[*https 原理是什么？为什么可以保证安全性？](https://github.com/febobo/web-interview/issues/135)
+
+加密形式：
+
+1. 对称加密：密钥都是相同的，这种是最直观简单的形式
+2. 非对称加密：密钥不同，一把私钥对应一把公钥，私钥加密只有对应公钥解密，反过来公钥加密也只有对应私钥能解密
+
+HTTPS = HTTP + SSL
+
+SSL采用混合加密（对称加密+非对称加密），主要原因是因为非对称加密性能代价比较高，而对称加密较少，那么
+
+1. 一开始通讯，用 『非对称加密』 交换 对称密钥 (`具体做法是发送密文的一方使用对方的公钥进行加密处理“对称的密钥”，然后对方用自己的私钥解密拿到“对称的密钥”`)
+2. 之后每一次通讯，可以都用 『对称加密』
+这样子性能和安全可以取到均衡
+混合加密用了4把钥匙（非对称加密的公钥A和私钥B，对称加密的私钥C和私钥D），就解决了信息加密的过程
+
+如何解决`完整性`问题？使用摘要！
+
+发送方把 正文M 经过某种算法X 生成摘要G，正文M+摘要G 加密发给接收方，接收方解密生成 正文N+摘要G，正文经过算法X生成 摘要F，如果F==G，则正文N==M相同
+
+如何解决`身份认证`？使用数字签名！
+
+数字签名很简单，就是用私钥加密，公钥解密，其核心思想是，『只有真正的通信方才拥有这把私钥』，黑客不可能拥有这把私钥，这样就起到了身份认证。
+
+`发送方生成摘要G后，用私钥加密，生成数字签名，数字签名和正文M一起发过去
+接收方收到后，用公钥解密出数字签名，在经过算法X生成摘要F，如果F==G，则正文相同`
+
+衍生一个问题，私钥是由真正通信方拥有，公钥也是由它发布，如何防止黑客发布假的公钥？CA数字证书认证机构！
+
+CA采用的是非对称性加密，私钥由CA持有，公钥由浏览器持有，但是会事先内嵌在浏览器当中
+通信方向CA申请公钥A，通过后CA把公钥A做数字签名，数字签名和公钥A绑定在一起，就是一份证书
+通信方进行通信的时候会把这份证书传给接收方，这样接收方会对证书上的数字签名进行认证，如果认证通过，就能够表明该通信方的身份。
 
 [http 常见状态码有哪些？](https://github.com/pro-collection/interview-question/issues/530)
 
@@ -299,7 +342,7 @@ http 有哪些方法？
 
 浏览器有哪些缓存？[localStorage、sessionStorage、cookie 的、session 的区别是什么？](https://github.com/pro-collection/interview-question/issues/104)
 
-[常见的请求头和响应头](https://github.com/pro-collection/interview-question/issues/527)
+[常见的请求头和响应头](https://juejin.cn/post/6974529351270268958#heading-12)
 
 [http2 多路复用是什么, 原理是什么](https://github.com/pro-collection/interview-question/issues/529)
 
