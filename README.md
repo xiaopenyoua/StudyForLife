@@ -267,7 +267,7 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 # 性能优化
 
-前端页面性能如何优化？
+前端页面性能如何优化
 
 [讲讲回流和重绘的区别，如何避免回流和重绘？](https://github.com/febobo/web-interview/blob/master/docs/css/layout_painting.md)
 
