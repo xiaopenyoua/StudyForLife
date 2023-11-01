@@ -234,27 +234,28 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 [webpack 的 loader 和 plugin 区别是什么？](https://github.com/febobo/web-interview/issues/125)常用的 [plugin](https://juejin.cn/post/6906089118447435784) 和 [loader](https://github.com/pro-collection/interview-question/issues/593) 有哪些？
 
-- plugin
-  - ProvidePlugin - 自动加载模块，使模块在使用时可以直接使用对应的全局变量，无需引入。
-  - CompressionWebpackPlugin - 使用 gzip 或其他压缩算法对文件进行压缩，减小文件大小，加快网络传输速度。
-  - ImageminWebpackPlugin - 压缩图片资源，减小文件大小，提升加载速度。
-  - HtmlWebpackPlugin - 根据模板文件自动生成 html 文件，并且将输出文件 JS 自动插入到 html 中，免去了需要手动更新版本号的烦恼。
-  - webpack.ProvidePlugin - 配置全局模块，避免多次引入的麻烦
-  - OptimizeCssAssetsWebpackPlugin - 压缩 css，会去除重复的类名样式
-- loader
-  - babel-loader - 将 ES6+ 代码转换为 ES5 代码，以便在旧版浏览器中运行。
-  - css-loader - 解析 CSS 文件，处理 CSS 中的依赖关系，并将 CSS 转换为 JS 模块。
-  - style-loader - 将 CSS 代码以内联的方式注入到 HTML 页面中。
-  - sass-loader - 解析 Sass/SCSS 文件，并将其转换为 CSS 代码。
-  - less-loader - 解析 Less 文件，并将其转换为 CSS 代码。
-  - ts-loader - 将 TypeScript 代码转换为 JavaScript 代码。
-  - vue-loader - 解析 Vue 单文件组件（.vue 文件），并将其转换为 JavaScript 代码。
-  - eslint-loader - 在构建过程中使用 ESLint 进行代码检查。
-  - prettier-loader - 在构建过程中使用 Prettier 进行代码格式化。
-  - markdown-loader - 将 Markdown 文件转换为 HTML 代码。
-  - json-loader - 解析 JSON 文件，并返回解析后的 JavaScript 对象。
+- `plugin`
+  - `ProvidePlugin` - 自动加载模块，使模块在使用时可以直接使用对应的全局变量，无需引入。
+  - `CompressionWebpackPlugin` - 使用 gzip 或其他压缩算法对文件进行压缩，减小文件大小，加快网络传输速度。
+  - `ImageminWebpackPlugin` - 压缩图片资源，减小文件大小，提升加载速度。
+  - `HtmlWebpackPlugin` - 根据模板文件自动生成 html 文件，并且将输出文件 JS 自动插入到 html 中，免去了需要手动更新版本号的烦恼。
+  - `webpack.ProvidePlugin` - 配置全局模块，避免多次引入的麻烦
+  - `OptimizeCssAssetsWebpackPlugin` - 压缩 css，会去除重复的类名样式
+- `loader` 【`这些 Loader 可以根据需要配置在 Webpack 的模块规则（module.rules）中，以实现对不同类型文件的处理和转换操作。`】
+  - `babel-loader` - 将 ES6+ 代码转换为 ES5 代码，以便在旧版浏览器中运行。
+  - `css-loader` - 解析 CSS 文件，处理 CSS 中的依赖关系，并将 CSS 转换为 JS 模块。
+  - `style-loader` - 将 CSS 代码以内联的方式注入到 HTML 页面中。
+  - `sass-loader` - 解析 Sass/SCSS 文件，并将其转换为 CSS 代码。
+  - `less-loader` - 解析 Less 文件，并将其转换为 CSS 代码。
+  - `ts-loader` - 将 TypeScript 代码转换为 JavaScript 代码。
+  - `vue-loader` - 解析 Vue 单文件组件（.vue 文件），并将其转换为 JavaScript 代码。
+  - `eslint-loader` - 在构建过程中使用 ESLint 进行代码检查。
+  - `prettier-loader` - 在构建过程中使用 Prettier 进行代码格式化。
+  - `markdown-loader` - 将 Markdown 文件转换为 HTML 代码。
+  - `json-loader`- 解析 JSON 文件，并返回解析后的 JavaScript 对象。
 
 [webpack 构建流程是什么？](https://github.com/pro-collection/interview-question/issues/283)
+![](https://user-images.githubusercontent.com/22188674/242314164-f39bc169-cb23-455f-bd1d-b022d2413a8b.png)
 
 [讲讲 tree-shaking 原理。](https://github.com/pro-collection/interview-question/issues/247)
 
