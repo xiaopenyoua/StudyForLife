@@ -1,14 +1,14 @@
 # HTML + CSS
 
-1. * [讲一下盒模型，普通盒模型和怪异盒模型有什么区别？](https://juejin.cn/post/7220775341605339194)
+1. - [讲一下盒模型，普通盒模型和怪异盒模型有什么区别？](https://juejin.cn/post/7220775341605339194)
 
 2. [块元素和行内元素区别是什么？常见块元素和行内元素有哪些？](https://blog.csdn.net/m0_51273200/article/details/120336046)
 
-3. * [HTML 语义化标签 有哪些？](https://juejin.cn/post/6844903544995184653)
+3. - [HTML 语义化标签 有哪些？](https://juejin.cn/post/6844903544995184653)
 
 4. [伪类和伪元素的区别是什么？](https://github.com/pro-collection/interview-question/issues/354)
 
-5. * [CSS 如何实现垂直居中？](https://github.com/pro-collection/interview-question/issues/36)
+5. - [CSS 如何实现垂直居中？](https://github.com/pro-collection/interview-question/issues/36)
 
 6. [CSS 常见的选择器有哪些？](https://github.com/pro-collection/interview-question/issues/353)
 
@@ -64,7 +64,7 @@
 
 13. 使用 new 创建对象的过程是什么样的？
 
-14. [this 指向系列问题。](https://github.com/pro-collection/interview-question/issues/519) / [哪些原因会导致js里this指向混乱?](https://github.com/pro-collection/interview-question/issues/388) -- [111](https://juejin.cn/post/6944707409596121102) --- [222](https://juejin.cn/post/7041055543984652319)
+14. [this 指向系列问题。](https://github.com/pro-collection/interview-question/issues/519) / [哪些原因会导致 js 里 this 指向混乱?](https://github.com/pro-collection/interview-question/issues/388) -- [111](https://juejin.cn/post/6944707409596121102) --- [222](https://juejin.cn/post/7041055543984652319)
 
 15. [谈谈对闭包的理解？什么是闭包？闭包有哪些应用场景？闭包有什么缺点？如何避免闭包？](https://github.com/pro-collection/interview-question/issues/37)
 
@@ -94,7 +94,7 @@
 
 28. 如何实现数组去重？
 
-29. [如何将JavaScript代码解析成抽象语法树(AST)](https://github.com/pro-collection/interview-question/issues/357)
+29. [如何将 JavaScript 代码解析成抽象语法树(AST)](https://github.com/pro-collection/interview-question/issues/357)
 
 [axios 是如何区分是 nodejs 环境还是 浏览器环境 的](https://github.com/pro-collection/interview-question/issues/574)
 
@@ -115,20 +115,22 @@
 [响应式为何要从 Object.defineProperty 改为 proxy](https://github.com/pro-collection/interview-question/issues/595) ---- [补充](https://juejin.cn/post/6998165868332990471)
 
 > 发布订阅模式： 订阅者向事件调度中心（PubSub）注册（subscribe）监听，当事件调度中心（PubSub）发布通知时（publish），订阅者的监听事件将会被触发。
->观察者模式： 定义了对象之间 一对多 的依赖关系，它只有两个角色，分别是观察的目标对象 Subject 和观察者对象 Observer，当一个 目标对象 的状态发生改变时，所有依赖于它的 观察者对象 都会收到通知。
+> 观察者模式： 定义了对象之间 一对多 的依赖关系，它只有两个角色，分别是观察的目标对象 Subject 和观察者对象 Observer，当一个 目标对象 的状态发生改变时，所有依赖于它的 观察者对象 都会收到通知。
 
-**整体简单的说就是，使用发布订阅模式中的特殊的一种 ---- `观察者模式`，被观察者也就是目标（数据对象），观察者（Watcher）其实就是包含组件重新渲染的 `渲染 Watcher`，用来更新View。**
+**整体简单的说就是，使用发布订阅模式中的特殊的一种 ---- `观察者模式`，被观察者也就是目标（数据对象），观察者（Watcher）其实就是包含组件重新渲染的 `渲染 Watcher`，用来更新 View。**
 
-**首先通过 `Object.defineProperty()` 来劫持各个属性的 `setter`，`getter`，为每一个对象属性都添加的 `get` 与 `set` 方法, 并且在每个属性的 `get()` 中 `new` 了一个 `dep` 收集当前的 `渲染 Watcher`（因为这个属性值可能会被多个View绑定）,在 `set` 方法里通知每个观察者 `渲染 Watcher` 执行 `update` 方法【`Vue 在 new 渲染 Watcher的时候会将组件挂载更新的方法(updateComponent)传入，存储在渲染watcher中。触发渲染watcher的update方法时实际上是触发这个组件挂载更新方法, 也就是在属性被修改时触发了set方法，而这个set方法会将依赖当前属性的页面重新渲染，从而达到数据驱动的效果。`】**
+**首先通过 `Object.defineProperty()` 来劫持各个属性的 `setter`，`getter`，为每一个对象属性都添加的 `get` 与 `set` 方法, 并且在每个属性的 `get()` 中 `new` 了一个 `dep` 收集当前的 `渲染 Watcher`（因为这个属性值可能会被多个 View 绑定）,在 `set` 方法里通知每个观察者 `渲染 Watcher` 执行 `update` 方法【`Vue 在 new 渲染 Watcher的时候会将组件挂载更新的方法(updateComponent)传入，存储在渲染watcher中。触发渲染watcher的update方法时实际上是触发这个组件挂载更新方法, 也就是在属性被修改时触发了set方法，而这个set方法会将依赖当前属性的页面重新渲染，从而达到数据驱动的效果。`】**
 
+实现 mvvm 的双向绑定，是采用数据劫持结合发布者-订阅者模式的方式，通过 Object.defineProperty()来劫持各个属性的 setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。就必须要实现以下几点：(通过 getter 来收集视图中的依赖，在 setter 的时候更新视图)
 
-实现mvvm的双向绑定，是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。就必须要实现以下几点：(通过 getter 来收集视图中的依赖，在 setter 的时候更新视图)
-1. 实现一个数据监听器Observer，能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者
-  - **在get中new了一个 dep 收集当前的渲染 Watcher**
-  - **在set方法中遍历收集的渲染Watcher 执行 update 方法**
-2. 实现一个指令解析器Compile，对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数
-3. 实现一个Watcher，作为连接Observer和Compile的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图
-  ***Vue 在 new 渲染 Watcher的时候会将组件挂载更新的方法(updateComponent)传入，存储在渲染watcher中。触发渲染watcher的update方法时实际上是触发这个组件挂载更新方法, 也就是在属性被修改时触发了set方法，而这个set方法会将依赖当前属性的页面重新渲染，从而达到数据驱动的效果。***
+1. 实现一个数据监听器 Observer，能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者
+
+- **在 get 中 new 了一个 dep 收集当前的渲染 Watcher**
+- **在 set 方法中遍历收集的渲染 Watcher 执行 update 方法**
+
+2. 实现一个指令解析器 Compile，对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数
+3. 实现一个 Watcher，作为连接 Observer 和 Compile 的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图
+   **_Vue 在 new 渲染 Watcher 的时候会将组件挂载更新的方法(updateComponent)传入，存储在渲染 watcher 中。触发渲染 watcher 的 update 方法时实际上是触发这个组件挂载更新方法, 也就是在属性被修改时触发了 set 方法，而这个 set 方法会将依赖当前属性的页面重新渲染，从而达到数据驱动的效果。_**
 
 ---
 
@@ -140,19 +142,17 @@
 
 [说说 Vue 的 keep-alive 使用及原理。](https://github.com/pro-collection/interview-question/issues/119)
 
-[使用 虚拟DOM 一定会比直接操作 真实 DOM 快吗?](https://github.com/pro-collection/interview-question/issues/207)
+[使用 虚拟 DOM 一定会比直接操作 真实 DOM 快吗?](https://github.com/pro-collection/interview-question/issues/207)
 
 讲讲[前端路由原理](https://github.com/pro-collection/interview-question/issues/269)。比较一下 history 和 hash 这两种路由。
 
 [讲讲 Vue 的虚拟 DOM，原理，好处是什么？](https://github.com/febobo/web-interview/issues/23)
-
 
 ## Vue2
 
 [讲讲 Vue2 双向绑定原理。](https://blog.csdn.net/qq_43574741/article/details/119326529)
 
 [生命周期](https://blog.51cto.com/u_16171599/6561182)
-
 
 ## Vue3
 
@@ -162,20 +162,20 @@
 
 [vue3 性能提升主要是体现在哪些方面](https://github.com/pro-collection/interview-question/issues/395)
 
-
 mvvm 和 mvc 区别是什么？
 
 ---
+
 ## 2 & 3
 
-[vu2 和 vue3 有什么区别？](https://github.com/febobo/web-interview/blob/master/docs/vue/vue3_vue2.md) ---------   [补充](https://github.com/pro-collection/interview-question/issues/488)
+[vu2 和 vue3 有什么区别？](https://github.com/febobo/web-interview/blob/master/docs/vue/vue3_vue2.md) --------- [补充](https://github.com/pro-collection/interview-question/issues/488)
 
 [vu2 vu3 diff](https://juejin.cn/post/7092068900589797413)
 
 面试的时候，区别如果只说文本类型打了标记，估计不会得到认可。建议配合另外一篇文章一块看。
 vue2、vue3 的 diff 算法实现差异主要体现在：处理完首尾节点后，对剩余节点的处理方式。
 
-在 vue2 中是通过对旧节点列表建立一个 { key, oldVnode }的映射表，然后遍历新节点列表的剩余节点，根据newVnode.key在旧映射表中寻找可复用的节点，然后打补丁并且移动到正确的位置。 (*用新的开始节点的key,去映射表中查找，如果找到就把该节点移动到最前面，且原来的位置用undefined占位，避免数组塌陷 防止老节点移动走了之后破坏了初始的映射表位置，如果没有找到就直接把新节点插入*)
+在 vue2 中是通过对旧节点列表建立一个 { key, oldVnode }的映射表，然后遍历新节点列表的剩余节点，根据 newVnode.key 在旧映射表中寻找可复用的节点，然后打补丁并且移动到正确的位置。 (_用新的开始节点的 key,去映射表中查找，如果找到就把该节点移动到最前面，且原来的位置用 undefined 占位，避免数组塌陷 防止老节点移动走了之后破坏了初始的映射表位置，如果没有找到就直接把新节点插入_)
 
 而在 vue3 中是建立一个存储新节点数组中的剩余节点在旧节点数组上的索引的映射关系数组，建立完成这个数组后也即找到了可复用的节点，然后通过这个数组计算得到最长递增子序列，这个序列中的节点保持不动，然后将新节点数组中的剩余节点移动到正确的位置。
 
@@ -191,7 +191,7 @@ vue2、vue3 的 diff 算法实现差异主要体现在：处理完首尾节点�
 
 [React fiber 是什么？有什么用？](https://juejin.cn/post/7243450433812070455?searchId=20231018150338D8A6D23C3F3FA5A206AE#heading-1)
 
-[灵魂拷问——有react fiber，为什么不需要vue fiber呢](https://juejin.cn/post/7077545184807878692?searchId=20231018150338D8A6D23C3F3FA5A206AE)
+[灵魂拷问——有 react fiber，为什么不需要 vue fiber 呢](https://juejin.cn/post/7077545184807878692?searchId=20231018150338D8A6D23C3F3FA5A206AE)
 
 React [生命周期](https://github.com/pro-collection/interview-question/issues/301)有哪些？React16 废弃了哪些？为什么要废弃？新增的生命周期钩子有哪些？有什么作用？
 
@@ -207,9 +207,9 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 [讲讲 React key 的作用。](https://github.com/pro-collection/interview-question/issues/130)
 
-[谈谈 React 的类组件和函数式组件的区别。](https://github.com/pro-collection/interview-question/issues/476) -----  [补充](https://github.com/pro-collection/interview-question/issues/582)
+[谈谈 React 的类组件和函数式组件的区别。](https://github.com/pro-collection/interview-question/issues/476) ----- [补充](https://github.com/pro-collection/interview-question/issues/582)
 
-[如何实现vue 中 keep-alive 的功能](https://github.com/pro-collection/interview-question/issues/580)
+[如何实现 vue 中 keep-alive 的功能](https://github.com/pro-collection/interview-question/issues/580)
 
 [react-router 页面跳转时，是如何传递下一个页面参数的](https://github.com/pro-collection/interview-question/issues/392)
 
@@ -219,14 +219,14 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 # [工程化](https://github.com/febobo/web-interview/tree/master/docs/webpack)
 
-[对webpack的理解？解决了什么问题](https://github.com/febobo/web-interview/issues/121)
+[对 webpack 的理解？解决了什么问题](https://github.com/febobo/web-interview/issues/121)
 
-[webpack热更新](https://github.com/febobo/web-interview/blob/master/docs/webpack/HMR.md)
+[webpack 热更新](https://github.com/febobo/web-interview/blob/master/docs/webpack/HMR.md)
 
-- 通过`webpack-dev-server`创建两个服务器：提供静态资源的服务（express）和Socket服务
+- 通过`webpack-dev-server`创建两个服务器：提供静态资源的服务（express）和 Socket 服务
 - `express server` 负责直接提供静态资源的服务（打包后的资源直接被浏览器请求和解析）
 - `socket server` 是一个 websocket 的长连接，双方可以通信
-- 当 `webpack` 监听到文件变化对文件重新编译打包，编译生成唯一的hash值，这个hash 值用来作为下一次热更新的标识,`socket server`会生成两个两个补丁文件: .json（manifest文件）和.js文件（update chunk）【`manifest`（包含了 hash 和 chundId ，用来说明变化的内容）和 `chunk.js` 模块】
+- 当 `webpack` 监听到文件变化对文件重新编译打包，编译生成唯一的 hash 值，这个 hash 值用来作为下一次热更新的标识,`socket server`会生成两个两个补丁文件: .json（manifest 文件）和.js 文件（update chunk）【`manifest`（包含了 hash 和 chundId ，用来说明变化的内容）和 `chunk.js` 模块】
 - 通过长连接，socket server 可以直接将这两个文件主动发送给客户端（浏览器）
 - 浏览器拿到两个新的文件后，通过`HMR runtime`机制，加载这两个文件，并且针对修改的模块进行更新
 
@@ -238,7 +238,21 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
   - ProvidePlugin - 自动加载模块，使模块在使用时可以直接使用对应的全局变量，无需引入。
   - CompressionWebpackPlugin - 使用 gzip 或其他压缩算法对文件进行压缩，减小文件大小，加快网络传输速度。
   - ImageminWebpackPlugin - 压缩图片资源，减小文件大小，提升加载速度。
-  - HtmlWebpackPlugin - 根据模板文件自动生成 html 文件，并且将输出文件JS自动插入到 html 中，免去了需要手动更新版本号的烦恼。
+  - HtmlWebpackPlugin - 根据模板文件自动生成 html 文件，并且将输出文件 JS 自动插入到 html 中，免去了需要手动更新版本号的烦恼。
+  - webpack.ProvidePlugin - 配置全局模块，避免多次引入的麻烦
+  - OptimizeCssAssetsWebpackPlugin - 压缩 css，会去除重复的类名样式
+- loader
+  - babel-loader - 将 ES6+ 代码转换为 ES5 代码，以便在旧版浏览器中运行。
+  - css-loader - 解析 CSS 文件，处理 CSS 中的依赖关系，并将 CSS 转换为 JS 模块。
+  - style-loader - 将 CSS 代码以内联的方式注入到 HTML 页面中。
+  - sass-loader - 解析 Sass/SCSS 文件，并将其转换为 CSS 代码。
+  - less-loader - 解析 Less 文件，并将其转换为 CSS 代码。
+  - ts-loader - 将 TypeScript 代码转换为 JavaScript 代码。
+  - vue-loader - 解析 Vue 单文件组件（.vue 文件），并将其转换为 JavaScript 代码。
+  - eslint-loader - 在构建过程中使用 ESLint 进行代码检查。
+  - prettier-loader - 在构建过程中使用 Prettier 进行代码格式化。
+  - markdown-loader - 将 Markdown 文件转换为 HTML 代码。
+  - json-loader - 解析 JSON 文件，并返回解析后的 JavaScript 对象。
 
 [webpack 构建流程是什么？](https://github.com/pro-collection/interview-question/issues/283)
 
@@ -292,16 +306,16 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 [CORS 是如何实现跨域的？](https://github.com/pro-collection/interview-question/issues/14)
 
-[HTTP/1.0、HTTP/1.1、HTTP/2和HTTP/3之间的主要区别](https://github.com/pro-collection/interview-question/issues/528)
+[HTTP/1.0、HTTP/1.1、HTTP/2 和 HTTP/3 之间的主要区别](https://github.com/pro-collection/interview-question/issues/528)
 
 [HTTP 和 HTTPS 的区别](https://github.com/febobo/web-interview/issues/134)
 
-- HTTPS是HTTP协议的安全版本，HTTP协议的数据传输是明文的，是不安全的，HTTPS使用了SSL/TLS协议进行了加密处理，相对更安全
-- HTTP 和 HTTPS 使用连接方式不同，默认端口也不一样，HTTP是80，HTTPS是443
+- HTTPS 是 HTTP 协议的安全版本，HTTP 协议的数据传输是明文的，是不安全的，HTTPS 使用了 SSL/TLS 协议进行了加密处理，相对更安全
+- HTTP 和 HTTPS 使用连接方式不同，默认端口也不一样，HTTP 是 80，HTTPS 是 443
 - HTTPS 由于需要设计加密以及多次握手，性能方面不如 HTTP
-- HTTPS需要SSL，SSL 证书需要钱，功能越强大的证书费用越高
+- HTTPS 需要 SSL，SSL 证书需要钱，功能越强大的证书费用越高
 
-[*https 原理是什么？为什么可以保证安全性？](https://github.com/febobo/web-interview/issues/135)
+[\*https 原理是什么？为什么可以保证安全性？](https://github.com/febobo/web-interview/issues/135)
 
 加密形式：
 
@@ -310,16 +324,16 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 HTTPS = HTTP + SSL
 
-SSL采用混合加密（对称加密+非对称加密），主要原因是因为非对称加密性能代价比较高，而对称加密较少，那么
+SSL 采用混合加密（对称加密+非对称加密），主要原因是因为非对称加密性能代价比较高，而对称加密较少，那么
 
 1. 一开始通讯，用 『非对称加密』 交换 对称密钥 (`具体做法是发送密文的一方使用对方的公钥进行加密处理“对称的密钥”，然后对方用自己的私钥解密拿到“对称的密钥”`)
 2. 之后每一次通讯，可以都用 『对称加密』
-这样子性能和安全可以取到均衡
-混合加密用了4把钥匙（非对称加密的公钥A和私钥B，对称加密的私钥C和私钥D），就解决了信息加密的过程
+   这样子性能和安全可以取到均衡
+   混合加密用了 4 把钥匙（非对称加密的公钥 A 和私钥 B，对称加密的私钥 C 和私钥 D），就解决了信息加密的过程
 
 如何解决`完整性`问题？使用摘要！
 
-发送方把 正文M 经过某种算法X 生成摘要G，正文M+摘要G 加密发给接收方，接收方解密生成 正文N+摘要G，正文经过算法X生成 摘要F，如果F==G，则正文N==M相同
+发送方把 正文 M 经过某种算法 X 生成摘要 G，正文 M+摘要 G 加密发给接收方，接收方解密生成 正文 N+摘要 G，正文经过算法 X 生成 摘要 F，如果 F==G，则正文 N==M 相同
 
 如何解决`身份认证`？使用数字签名！
 
@@ -328,10 +342,10 @@ SSL采用混合加密（对称加密+非对称加密），主要原因是因为�
 `发送方生成摘要G后，用私钥加密，生成数字签名，数字签名和正文M一起发过去
 接收方收到后，用公钥解密出数字签名，在经过算法X生成摘要F，如果F==G，则正文相同`
 
-衍生一个问题，私钥是由真正通信方拥有，公钥也是由它发布，如何防止黑客发布假的公钥？CA数字证书认证机构！
+衍生一个问题，私钥是由真正通信方拥有，公钥也是由它发布，如何防止黑客发布假的公钥？CA 数字证书认证机构！
 
-CA采用的是非对称性加密，私钥由CA持有，公钥由浏览器持有，但是会事先内嵌在浏览器当中
-通信方向CA申请公钥A，通过后CA把公钥A做数字签名，数字签名和公钥A绑定在一起，就是一份证书
+CA 采用的是非对称性加密，私钥由 CA 持有，公钥由浏览器持有，但是会事先内嵌在浏览器当中
+通信方向 CA 申请公钥 A，通过后 CA 把公钥 A 做数字签名，数字签名和公钥 A 绑定在一起，就是一份证书
 通信方进行通信的时候会把这份证书传给接收方，这样接收方会对证书上的数字签名进行认证，如果认证通过，就能够表明该通信方的身份。
 
 [http 常见状态码有哪些？](https://github.com/pro-collection/interview-question/issues/530)
@@ -353,7 +367,6 @@ http 有哪些方法？
 [http2 多路复用是什么, 原理是什么](https://github.com/pro-collection/interview-question/issues/529)
 
 [http1.1 的 keep-alive 和 http2 的多路复用 有什么区别](https://github.com/pro-collection/interview-question/issues/597)
-
 
 ## 问题
 
