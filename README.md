@@ -110,6 +110,8 @@
 
 [Vue 组件间通信方式有哪些？](https://github.com/febobo/web-interview/blob/master/docs/vue/communication.md)
 
+[为什么vue中的data要用return返回](https://juejin.cn/post/7293401255052967973)
+
 ---
 
 [响应式为何要从 Object.defineProperty 改为 proxy](https://github.com/pro-collection/interview-question/issues/595) ---- [补充](https://juejin.cn/post/6998165868332990471)
@@ -145,6 +147,8 @@
 [使用 虚拟 DOM 一定会比直接操作 真实 DOM 快吗?](https://github.com/pro-collection/interview-question/issues/207)
 
 讲讲[前端路由原理](https://github.com/pro-collection/interview-question/issues/269)。比较一下 history 和 hash 这两种路由。
+
+[使用 history 模式的前端路由时静态资源服务器配置详解](https://juejin.cn/post/7204307381689532474#heading-119)
 
 [讲讲 Vue 的虚拟 DOM，原理，好处是什么？](https://github.com/febobo/web-interview/issues/23)
 
@@ -185,7 +189,48 @@ vue2、vue3 的 diff 算法实现差异主要体现在：处理完首尾节点�
 
 # React
 
-[讲讲 React diff 算法。](https://github.com/pro-collection/interview-question/issues/326)
+[--- 集合 ---](https://juejin.cn/post/7204307381689532474#heading-2)
+
+[讲讲 React diff 算法。](https://juejin.cn/post/7204307381689532474#heading-2) ---------
+
+[React 的 setState 是同步的还是异步的？](https://juejin.cn/post/7204307381689532474#heading-5) ------------
+
+[为什么直接修改 this.state 无效](https://juejin.cn/post/7204307381689532474#heading-9) --------------
+
+[React 18 的新特性有哪些](https://juejin.cn/post/7204307381689532474#heading-11) ---------------
+
+- React 并发新特性
+  在 React 18 中，提供了新的 root api，我们只需要把 render 升级成 createRoot(root).render() 就可以开启并发模式了。
+  - 新 root API -
+    - `createRoot`：新的创建根的方法，以进行 render 或 unmount。使用它替代 ReactDOM.render。没有它，React 18 的新功能就不能工作。
+    - `hydrateRoot`：新的方法用以创建服务端渲染应用。使用它替代 ReactDOM.hydrate 与新的 React DOM 服务端 API 一起使用。没有它，React 18 的新功能就不能工作。
+  - 自动批处理优化
+  - `startTransition` - 可以用来降低渲染优先级。分别用来包裹计算量大的 function 和 value，降低优先级，减少重复渲染次数。
+  - `useDefferdValue` - 通过 `useDefferdValue` 允许变量延时更新，同时接受一个可选的延迟更新的最大值。
+
+[React v16.8 中的 hooks](https://juejin.cn/post/7204307381689532474#heading-24)
+
+[useCallbck vs useMemo 的区别](https://juejin.cn/post/7204307381689532474#heading-47)
+
+[谈谈 React 的类组件和函数式组件的区别。](https://github.com/pro-collection/interview-question/issues/476) ----- [补充](https://github.com/pro-collection/interview-question/issues/582)
+
+[如何对 React 性能优化？](https://github.com/pro-collection/interview-question/issues/584) -- [补充](https://juejin.cn/post/7204307381689532474#heading-58)
+
+[componentWillUnmount 在浏览器刷新后，会执行吗](https://juejin.cn/post/7204307381689532474#heading-57)
+
+不会。
+
+如果想实现，在刷新页面时进行数据处理。使用`beforeunload`事件。
+
+还有一个`navigator.sendBeacon()`
+
+[Vue和 React的区别](https://juejin.cn/post/7204307381689532474#heading-131)
+
+[React-Hook为什么不能放到条件语句中](https://juejin.cn/post/7236325900720013371)
+
+---
+
+[PureComponent、shouldComponentUpdate](https://juejin.cn/post/6844903806170300423)
 
 [React 组件复用方式有哪几种？](https://juejin.cn/post/7034130776115396639)
 
@@ -195,11 +240,7 @@ vue2、vue3 的 diff 算法实现差异主要体现在：处理完首尾节点�
 
 React [生命周期](https://github.com/pro-collection/interview-question/issues/301)有哪些？React16 废弃了哪些？为什么要废弃？新增的生命周期钩子有哪些？有什么作用？
 
-[如何对 React 性能优化？](https://github.com/pro-collection/interview-question/issues/584)
-
 [开发过程中有哪些性能优化手段](https://github.com/pro-collection/interview-question/issues/305)
-
-[React 的 setState 是同步的还是异步的？](https://github.com/pro-collection/interview-question/issues/132)
 
 [讲讲 React 事件绑定原理。](https://github.com/pro-collection/interview-question/issues/336)
 
@@ -207,13 +248,9 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 [讲讲 React key 的作用。](https://github.com/pro-collection/interview-question/issues/130)
 
-[谈谈 React 的类组件和函数式组件的区别。](https://github.com/pro-collection/interview-question/issues/476) ----- [补充](https://github.com/pro-collection/interview-question/issues/582)
-
 [如何实现 vue 中 keep-alive 的功能](https://github.com/pro-collection/interview-question/issues/580)
 
 [react-router 页面跳转时，是如何传递下一个页面参数的](https://github.com/pro-collection/interview-question/issues/392)
-
-[18 的新特性有哪些](https://github.com/pro-collection/interview-question/issues/299)
 
 ---
 
@@ -447,6 +484,19 @@ http 有哪些方法？
 [http2 多路复用是什么, 原理是什么](https://github.com/pro-collection/interview-question/issues/529)
 
 [http1.1 的 keep-alive 和 http2 的多路复用 有什么区别](https://github.com/pro-collection/interview-question/issues/597)
+
+[网络集合](https://juejin.cn/post/7203504932995989560#heading-47)
+
+# npm
+
+[npm install 发生了啥](https://juejin.cn/post/7204307381689532474#heading-118)
+![Alt text](image.png)
+
+
+---
+
+[浏览器篇](https://juejin.cn/post/7203180003470311483)
+[JS篇](https://juejin.cn/post/7202904269535887418#heading-1)
 
 ## 问题
 
