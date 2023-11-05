@@ -18,6 +18,28 @@
 
 9. [讲一下 flex 弹性盒布局？](https://github.com/pro-collection/interview-question/issues/100)
 
+- 容器属性
+
+  ```
+  flex-direction
+  flex-wrap
+  flex-flow
+  justify-content
+  align-items
+  align-content - 定义了多根轴线的对齐方式。
+  ```
+
+- 项目的属性
+
+  ```
+  order - 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+  flex-grow
+  flex-shrink
+  flex-basis
+  flex - 是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto
+  align-self - align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。
+  ```
+
 10. [浮动塌陷问题解决方法是什么？](https://juejin.cn/post/7074581427571916807)
 
 11. [position 属性的值有哪些？各个值是什么含义？](https://github.com/pro-collection/interview-question/issues/158)
@@ -112,7 +134,7 @@
 
 [Vue 组件间通信方式有哪些？](https://github.com/febobo/web-interview/blob/master/docs/vue/communication.md)
 
-[为什么vue中的data要用return返回](https://juejin.cn/post/7293401255052967973)
+[为什么 vue 中的 data 要用 return 返回](https://juejin.cn/post/7293401255052967973)
 
 ---
 
@@ -176,14 +198,67 @@ mvvm 和 mvc 区别是什么？
 
 [vu2 和 vue3 有什么区别？](https://github.com/febobo/web-interview/blob/master/docs/vue/vue3_vue2.md) --------- [补充](https://github.com/pro-collection/interview-question/issues/488)
 
-[vu2 vu3 diff](https://juejin.cn/post/7092068900589797413)
+[vu2 vu3 diff](https://juejin.cn/post/7092068900589797413) ---- [vu2 补充](https://juejin.cn/post/7211132346255638584) ----- [vu3 补充](https://juejin.cn/post/7286787235361882124?searchId=20231105222321A9B67E2A1471707403F5)
 
-面试的时候，区别如果只说文本类型打了标记，估计不会得到认可。建议配合另外一篇文章一块看。
-vue2、vue3 的 diff 算法实现差异主要体现在：处理完首尾节点后，对剩余节点的处理方式。
+面试的时候，区别如果只说文本类型打了标记(`静态标记`)，估计不会得到认可。
 
-在 vue2 中是通过对旧节点列表建立一个 { key, oldVnode }的映射表，然后遍历新节点列表的剩余节点，根据 newVnode.key 在旧映射表中寻找可复用的节点，然后打补丁并且移动到正确的位置。 (_用新的开始节点的 key,去映射表中查找，如果找到就把该节点移动到最前面，且原来的位置用 undefined 占位，避免数组塌陷 防止老节点移动走了之后破坏了初始的映射表位置，如果没有找到就直接把新节点插入_)
+```
+// 判断两个vnode的标签和key是否相同 如果相同 就可以认为是同一节点就地复用
+function isSameVnode(oldVnode, newVnode) {
+  return oldVnode.tag === newVnode.tag && oldVnode.key === newVnode.key;
+}
+```
 
-而在 vue3 中是建立一个存储新节点数组中的剩余节点在旧节点数组上的索引的映射关系数组，建立完成这个数组后也即找到了可复用的节点，然后通过这个数组计算得到最长递增子序列，这个序列中的节点保持不动，然后将新节点数组中的剩余节点移动到正确的位置。
+遍历结束条件：
+
+```
+while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx)
+```
+
+vue2、vue3 的 diff 算法实现差异主要体现在：`处理完首尾节点后，对剩余节点的处理方式`。
+
+在 vue2 [`核心方法是 updateChildren`]中是通过循环遍历剩余旧节点列表建立一个 `{ key, index }` 的映射表，然后遍历新节点列表的剩余节点，根据新的节点 `key` 在旧映射表中寻找可复用的节点，然后打补丁并且移动到正确的位置。具体比对方式：
+
+用新的开始节点的 key,去映射表中查找:
+
+- `找到了对应的索引`，那么会通过 sameVNode 对两个节点进行对比：
+
+  - 相同节点，调用 patchVnode 进行深层对比和 dom 更新，将对应的节点插入到 `oldStartIdex` 对应的节点之前；并且，并且原来的位置用 `undefined` 占位，避免数组塌陷 防止老节点移动走了之后破坏了初始的映射表位置
+
+  - 不同节点，则调用 createElm 重新创建一个新的 dom 节点并将 新的 vnode 插入到对应的位置
+
+- `没有找到对应的索引`，则直接 createElm 创建新的 dom 节点并将新的 vnode 插入到对应位置(也就是 `oldStartIdex` 对应的节点之前)
+
+最后，会将 `新节点数组的 起始索引 向后移动。`
+
+剩余节点处理：
+![img](![Alt text](image-1.png))
+
+---
+
+而在 vue3 [`核心方法是 patchKeyedChildren`]中是建立一个存储新节点数组中的剩余节点在旧节点数组上的索引的映射关系数组,![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e11856d82ad34a3bab66ce4e573e6ee3~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
+(`k 表示当前老节点在新集合中的位置，pos 表示上一个老节点在新集合里面的位置，默认是 0,如果 k < pos,说明不是升序需要移动, 否则 pos = k`)
+
+建立完成这个数组后也即找到了可复用的节点，然后通过这个数组计算得到最长递增子序列，这个序列中的节点保持不动，然后将新节点数组中的剩余节点移动到正确的位置。
+
+- 构造一个数组 source，它的长度为`剩余新的一组子节点`的长度，并且 source 中每个元素的初始值都是 `-1`,source 数组将用来存储 `新的一组子节点中的每个节点在旧的一组子节点中的位置索引`【这一步要经历两次循环：】
+
+  - 第一个 for 循环便利`新节点集合`用来构建索引表 `{ key, index }`，[节点的 key 值与节点在 `新的一组子节点`中位置索引之间的映射]
+  - 第二个 for 循环遍历 `旧的一组子节点`。拿旧子节点的 `key` 值去上一步得到的索引表 `{ key, index }` 中查找该节点在`新的一组子节点`中的位置，并将查找结果存储到变量 `u` 中。如果 `u` 存在，说明该节点是可复用的，所以我们调用 `patch` 函数进行打补丁，并把旧节点 `index` 填充 `source` 数组；不存在否则说明该节点已经不存在于新的一组子节点中了，这时我们需要调用 `unmount` 函数卸载它。
+
+- 此时我们只需要专注于 `source` 数组. 由于在处理 `source` 时，旧节点数组需要被卸载的已经卸载了，source 中的 `-1` 代表新元素需要挂载。
+- 判断是否移动【`新元素在旧节点数组的索引小于上一个元素在旧节点数组的索引`】：
+  - `利用最长递增子序列来优化移动逻辑`: 首先通过最长递增子序列获取到升序列表存【 `存放的是新节点的索引 index` 】，然后从后遍历`新的一组子节点`,节点的索引与升序列表对比，如果对比上了说明不需要移动，否则需要移动。
+    ![Alt text](image-2.png)
+    对比逻辑：
+    - s: 指向升序列表尾，
+    - 当前新节点索引
+      - 如果当前新节点的值为 -1，表示新增节点，进行挂载
+      - 值不为 -1，则当前索引与 `s` 指向的值比较
+        - 相等：说明该节点对应的老节点不需要移动，并且 `s--; i--`
+        - 不相等：说明该节点对应的老节点需要移动到当前位置
+
+[为什么不能用 index 做 key，有哪些危害。]()
 
 [Vue 父子组件生命周期触发顺序是怎样的？](https://blog.csdn.net/qq_57334853/article/details/125717202) ----- [补充](https://juejin.cn/post/7108206884867276831#heading-2)
 
@@ -226,9 +301,9 @@ vue2、vue3 的 diff 算法实现差异主要体现在：处理完首尾节点�
 
 还有一个`navigator.sendBeacon()`
 
-[Vue和 React的区别](https://juejin.cn/post/7204307381689532474#heading-131)
+[Vue 和 React 的区别](https://juejin.cn/post/7204307381689532474#heading-131)
 
-[React-Hook为什么不能放到条件语句中](https://juejin.cn/post/7236325900720013371)
+[React-Hook 为什么不能放到条件语句中](https://juejin.cn/post/7236325900720013371)
 
 ---
 
@@ -494,11 +569,10 @@ http 有哪些方法？
 [npm install 发生了啥](https://juejin.cn/post/7204307381689532474#heading-118)
 ![Alt text](image.png)
 
-
 ---
 
 [浏览器篇](https://juejin.cn/post/7203180003470311483)
-[JS篇](https://juejin.cn/post/7202904269535887418#heading-1)
+[JS 篇](https://juejin.cn/post/7202904269535887418#heading-1)
 
 ## 问题
 
