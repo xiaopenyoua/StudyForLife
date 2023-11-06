@@ -291,6 +291,11 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 
 8. 防抖节流的概念？实现防抖和节流。[节流](https://github.com/pro-collection/interview-question/issues/53) / [防抖](https://github.com/pro-collection/interview-question/issues/51)
 
+- 节流
+  - 对于持续触发的事件，规定一个间隔时间（n 秒），每隔一段只能执行一次。
+- 防抖
+  - 函数防抖是指对于在事件被触发 n 秒后再执行的回调，如果在这 n 秒内又重新被触发，则重新开始计时
+
 9. [深拷贝、浅拷贝的区别？如何实现深拷贝和浅拷贝？](https://github.com/febobo/web-interview/blob/master/docs/JavaScript/copy.md)
 
 10. [对比 一下 var、const、let。](https://blog.csdn.net/xiewenhui111/article/details/113133330)
