@@ -199,7 +199,7 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 
 17. [CSS Module 是什么？](https://github.com/pro-collection/interview-question/issues/589) --- [补充](https://juejin.cn/post/7215509220749213752)
 
-`CSS Modules` 是一种 `CSS 模块化`的解决方案，它通过将 CSS 文件与组件绑定，在构建过程中自动生成唯一的类名，从而实现样式的`局部作用域`
+`CSS Modules` 是一种 `CSS 模块化`的解决方案，它通过在编译时为每个 CSS 类名生成唯一的标识符，并将它们作为 JavaScript 对象的属性导出。这样，可以确保每个类名在整个应用程序中的唯一性，避免样式冲突，从而实现样式的`局部作用域`
 
 - 解决问题
   - 命名冲突和全局样式污染问题
