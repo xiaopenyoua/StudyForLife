@@ -269,6 +269,7 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 - `postcss-px-to-viewport` - 将 px 转为 rem
 - `postcss-import` - 导入其他 CSS 文件
 - `postcss-nested` - 允许使用嵌套的 CSS
+- `postcss-modules` - 可以将样式文件转换为 CSS Modules 格式
 
 # JavaScript
 
