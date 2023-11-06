@@ -20,25 +20,52 @@
 
 - 容器属性
 
-  ```
-  flex-direction
-  flex-wrap
-  flex-flow
-  justify-content
-  align-items
-  align-content - 定义了多根轴线的对齐方式。
-  ```
+  - flex-direction
+    - row（默认值）：主轴为水平方向，起点在左端。
+    - row-reverse：主轴为水平方向，起点在右端。
+    - column：主轴为垂直方向，起点在上沿。
+    - column-reverse：主轴为垂直方向，起点在下沿。
+  - flex-wrap
+    - nowrap（默认）：不换行，按正常的流动方向排列。
+    - wrap：换行，按正常的流动方向排列。
+    - wrap-reverse：换行，按相反的流动方向排列。
+  - flex-flow
+    - flex-direction 与 flex-wrap 简写形式，定义项目的排列方向,默认值为 row nowrap。
+  - justify-content
+    - flex-start（默认值）：左对齐
+    - flex-end：右对齐
+    - center：居中
+    - space-between：两端对齐，项目之间的间隔都相等。
+    - space-around：每个项目两侧的间隔相等。
+  - align-items
+    - flex-start（默认值）：交叉轴的起点对齐。
+    - flex-end：交叉轴的终点对齐。
+    - center：交叉轴的中点对齐。
+    - baseline：项目的基线对齐。
+    - stretch（默认值）：如果项目未设置高度或设为 auto，将占满整个容器的高度。
+  - align-content - 定义了多根轴线的对齐方式。
+    - flex-start（默认值）：与交叉轴的起点对齐。
+    - flex-end：与交叉轴的终点对齐。
+    - center：与交叉轴的中点对齐。
+    - space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+    - space-around：每根轴线两侧的间隔都相等。
 
 - 项目的属性
 
-  ```
-  order - 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
-  flex-grow
-  flex-shrink
-  flex-basis
-  flex - 是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto
-  align-self - align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。
-  ```
+  - order
+    - 定义项目的排列顺序。数值越小，排列越靠前，默认为 0。
+  - flex-grow
+    - 定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+  - flex-shrink
+    - 定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
+  - flex-basis
+    - 定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即项目的本来大小。
+    - 它可以设为跟 width 或 height 属性一样的值（比如 200px），则项目将占据固定空间。
+    - 可以设为跟 width 或 height 属性一样的值（比如 350px），则项目将占据固定空间。
+  - flex
+    - 是 flex-grow, flex-shrink 和 flex-basis 的简写，默认值为 0 1 auto
+  - align-self
+    - align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。
 
 10. [浮动塌陷问题解决方法是什么？](https://juejin.cn/post/7074581427571916807)
 
@@ -46,19 +73,202 @@
 
 12. [BFC、IFC 是什么？](https://juejin.cn/post/7072174649735381029)
 
+BFC（Block Formatting Contexts）块级格式化上下文, 页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。
+
+- 如何触发 BFC？
+  - 根元素
+  - 浮动 `float: left/right/inherit`
+  - position 为 `absolute` 或 `fixed`
+  - overflow 不为 `visible`
+  - display 为 `inline-block`、`table-cell`、`table-caption` 或 `flex/inline-flex`等
+- BFC 布局规则
+
+  - 内部的 Box 垂直方向的排列顺序，与外部 Box 垂直方向的排列顺序相同。
+  - Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠。
+  - 每个元素的 margin box 的左边， 与包含块 border box 的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
+  - 计算 BFC 的高度时，浮动元素也参与计算。
+  - BFC 的区域不会与 float 元素重叠。
+  - BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。
+
+- 应用场景：
+  - 解决块级元素垂直方向 margin 重叠
+  - 解决高度塌陷问题
+  - 清除浮动
+
+IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格式化上下文。
+
+- 如何触发 IFC？
+  - 块级元素中仅包含内联级别元素
+    - 形成条件非常简单，需要注意的是当 IFC 中有块级元素插入时，会产生两个匿名块将父元素分割开来，产生两个 IFC。
+- IFC 布局规则
+  - 内部元素按从左到右的顺序排列：IFC 中的内联元素会按从左到右的顺序排列，如果空间不够就会自动换行，因此我们永远不需要手动在行尾添加“换行符”。
+  - 子元素只会计算横向样式空间，【padding、border、margin】，垂直方向样式空间不会被计算，【padding、border、margin】。
+  - 对齐方式由父容器决定：IFC 内部元素的对齐方式受到父容器的控制。（`text-align`、`vertical-align`）
+  - 能把在一行上的框都完全包含进去的一个矩形区域，被称为该行的行框（`line box`）,行框的宽度是由它的包含块（`containing box`）和与其中的浮动来决定。
+  - IFC 中的 `line box` 一般左右边贴紧其包含块，但 float 元素会优先排列。
+  - IFC 中的 `line box` 高度由 CSS 行高计算规则来确定，同个 IFC 下的多个 `line box` 高度可能会不同。
+  - 当 `inline boxes` 的总宽度少于包含它们的 `line box` 时，其水平渲染规则由 text-align 属性值来决定。
+  - 当一个 `inline box` 超过父元素的宽度时，它会被分割成多个 boxes，这些 boxes 分布在多个 `line box` 中。如果子元素未设置强制换行的情况下，`inline box` 将不可被分割，将会溢出父元素。
+- 应用场景
+  - 对于一些包含多个小的文字和图片的块，在需要进行对齐和布局的时候，可以使用 IFC 来控制它们的位置和对齐方式。
+  - IFC 常用作文本的排版环境，例如在实现栏目列表、文章标题、文章正文等方面常用。
+  - 在一些富文本编辑器开发中，我们可以使用 IFC 来控制编辑器中的文字格式，例如设置字号、字体、颜色等。
+  - 水平居中：当一个块要在环境中水平居中时，设置其为 inline-block 则会在外层产生 IFC，通过设置父容器  text-align:center  则可以使其水平居中。
+    - 值得注意的是，设置一个块为  inline-block ，以单个封闭块来参与外部的 IFC，而内部则生成了一个 BFC。
+
 13. [多列等高布局](https://juejin.cn/post/7197614864364273722)
 
+```
+<div class="container">
+  <div class="left">left</div>
+  <div class="center">center</div>
+  <div class="right">right</div>
+</div>
+
+.left {
+  background-color: red;
+}
+.center {
+  background-color: green;
+}
+.right {
+  background-color: blue;
+}
+
+```
+
+- padding + 负 margin
+  ```
+  .container {
+    overflow: hidden;
+  }
+  .center,
+  .left,
+  .right {
+    padding-bottom: 10000px;
+    margin-bottom: -10000px;
+  }
+  ```
+- 模仿 table 布局
+
+  ```
+  .container {
+    display: table;
+  }
+  .center,
+  .left,
+  .right {
+    display: table-cell;
+  }
+  ```
+
+- flex 实现
+
+  ```
+  .container {
+    display: flex;
+  }
+  ```
+
+- grid 实现
+  ```
+  .container {
+    display: grid;
+    grid-auto-flow: column;
+  }
+  ```
+
 14. [CSS Grid 布局](https://github.com/pro-collection/interview-question/issues/420)
+
+- 容器属性
+  ![Alt text](image-3.png)
+
+- 项目（item）属性
+  ![Alt text](image-4.png)
 
 15. [清除浮动的解决方案](https://github.com/pro-collection/interview-question/issues/55)
 
 16. [如何避免全局样式污染？](https://github.com/pro-collection/interview-question/issues/422)
 
-17. [CSS Module 是什么？](https://github.com/pro-collection/interview-question/issues/589)
+- `使用命名约定-前缀`：给不同组件、模块或页面的样式类名添加特定的前缀，以确保它们的作用范围只在对应的组件、模块或页面内生效。
+- `使用 CSS-in-JS`：使用 CSS-in-JS 技术，将样式直接与组件绑定，可以避免全局样式的冲突。常见的 CSS-in-JS 工具库有 [`styled-components`](https://juejin.cn/post/7088876240404217886)、[`Emotion`](https://juejin.cn/post/7135445302957309965)等。
+- `使用 CSS Modules`：CSS Modules 是一种 CSS 模块化的解决方案，它通过将 CSS 文件与组件绑定，在构建过程中自动生成唯一的类名，从而实现样式的局部作用域。这样可以避免全局样式冲突。常见的 CSS Modules 实现包括 webpack 的 [`css-loader`]() 和 vue-style-loader。
+- `使用作用域限定符`：使用 CSS 预处理器（如 Sass 或 Less）的作用域限定符（如父选择器 `&`）来限制样式的作用范围。
+- `使用样式重置/规范`：使用样式重置或规范库，如 Normalize.css，可以消除浏览器默认样式的差异，以确保在不同浏览器下呈现一致的样式，并避免全局样式污染。
+- `使用模块化开发框架`：使用诸如 React、Vue 或 Angular 等模块化开发框架，它们提供了组件化的开发模式，每个组件具有独立的样式作用域，可以避免全局样式的冲突。
 
-18. [`Window.onLoad` 和 `DOMContentLoaded` 事件的先后顺序](https://juejin.cn/post/6862340770365210631)
+17. [CSS Module 是什么？](https://github.com/pro-collection/interview-question/issues/589) --- [补充](https://juejin.cn/post/7215509220749213752)
 
----
+`CSS Modules` 是一种 `CSS 模块化`的解决方案，它通过将 CSS 文件与组件绑定，在构建过程中自动生成唯一的类名，从而实现样式的`局部作用域`
+
+- 解决问题
+  - 命名冲突和全局样式污染问题
+  - 解决 css 选择器嵌套过深问题
+  - 样式模块化
+
+18. [Vue：Scoped Styles 和 CSS Modules 的区别](https://juejin.cn/post/7237324970556932153)
+
+- Scoped Styles 是 Vue 独有的基于额外添加的 HTML attribute 实现的、类 shadow DOM 方案，更容易使用；
+
+  - 只需要在 `<style>` 标签中添加一个 scoped 属性,下面代码会经过 `PostCSS` 处理并转换成如下代码:
+
+    ```
+    <template>
+      <button class="button" />
+      </template>
+    <style scoped>
+      .button {
+        color: red;
+      }
+    </style>
+
+    // 转换后
+    <style>
+    .button[data-v-f61kqi1] {
+      color: red;
+    }
+    </style>
+
+    <button class="button" data-v-f61kqi1></button>
+    ```
+
+  -
+
+- CSS Modules 则最早由 React 社区采用，使用 JavaScript 语言管理页面中的样式
+
+  - 使用模块 module 来代替 scoped 属性，这会告诉 vue-template-compiler 和 vue-cli 的 webpack 配置使用适当的加载器来处理此部分样式并生成以下 CSS：
+
+  ```
+  <template>
+    <button :class="$style.button" />
+  </template>
+
+  <style module>
+    .button {
+      color: red
+    }
+  </style>
+
+  // 转换后
+  <style>
+    .ComponentName__button__2Kxy {
+      color: red;
+    }
+  </style>
+
+  <button class=”ComponentName__button__2Kxy”></button>
+  ```
+
+19. [`Window.onLoad` 和 `DOMContentLoaded` 事件的先后顺序](https://juejin.cn/post/6862340770365210631)
+
+20. [PostCSS](https://github.com/pro-collection/interview-question/issues/418) ----- [相关插件](https://juejin.cn/post/6862371071115558926#heading-4)
+
+- `Autoprefixer` - 为 CSS 规则添加特定厂商的前缀
+- `postcss-preset-env` - 将最新的 CSS 语法转换成大多数浏览器都能理解的语法，默认包含 `Autoprefixer` 插件
+- `cssnano` - 通过移除注释、空白、重复规则、过时的浏览器前缀以及做出其他的优化压缩 CSS 代码
+- `postcss-px-to-viewport` - 将 px 转为 rem
+- `postcss-import` - 导入其他 CSS 文件
+- `postcss-nested` - 允许使用嵌套的 CSS
 
 # JavaScript
 
@@ -203,16 +413,20 @@ mvvm 和 mvc 区别是什么？
 面试的时候，区别如果只说文本类型打了标记(`静态标记`)，估计不会得到认可。
 
 ```
-// 判断两个vnode的标签和key是否相同 如果相同 就可以认为是同一节点就地复用
+
+// 判断两个 vnode 的标签和 key 是否相同 如果相同 就可以认为是同一节点就地复用
 function isSameVnode(oldVnode, newVnode) {
-  return oldVnode.tag === newVnode.tag && oldVnode.key === newVnode.key;
+return oldVnode.tag === newVnode.tag && oldVnode.key === newVnode.key;
 }
+
 ```
 
 遍历结束条件：
 
 ```
+
 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx)
+
 ```
 
 vue2、vue3 的 diff 算法实现差异主要体现在：`处理完首尾节点后，对剩余节点的处理方式`。
@@ -357,7 +571,10 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
   - `OptimizeCssAssetsWebpackPlugin` - 压缩 css，会去除重复的类名样式
 - `loader` 【`这些 Loader 可以根据需要配置在 Webpack 的模块规则（module.rules）中，以实现对不同类型文件的处理和转换操作。`】
   - `babel-loader` - 将 ES6+ 代码转换为 ES5 代码，以便在旧版浏览器中运行。
-  - `css-loader` - 解析 CSS 文件，处理 CSS 中的依赖关系，并将 CSS 转换为 JS 模块。
+  - `css-loader`
+    - 解析 CSS 文件，处理 CSS 中的依赖关系，并将 CSS 转换为 JS 模块。
+    - css-loader 帮助我们解析 css 成为 js 对象
+    - sytle-loader 可以从 css-loader 解析的对象中提取 css 样式挂载到页面当中
   - `style-loader` - 将 CSS 代码以内联的方式注入到 HTML 页面中。
   - `sass-loader` - 解析 Sass/SCSS 文件，并将其转换为 CSS 代码。
   - `less-loader` - 解析 Less 文件，并将其转换为 CSS 代码。
@@ -445,6 +662,7 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 2. 对于 GET 请求，Token 将附在请求地址之后。对于 POST 请求来说，要在 form 的最后加上
 
 ```
+
 <input type=”hidden” name=”csrftoken” value=”tokenvalue”/>
 ```
 

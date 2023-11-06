@@ -32,3 +32,21 @@ function arrayToTree(tree, root) {
 
 const tree = arrayToTree(arrayData, 0)
 console.log(tree)
+
+let obj = {
+  a: 1,
+  b: 2,
+  c: 3
+}
+
+obj.__proto__[Symbol.iterator] = function* () {
+  for (const key in this) {
+    if (obj.hasOwnProperty(key)) {
+      yield [key, this[key]]
+    }
+  }
+}
+
+for (const iterator of obj) {
+  console.log(iterator)
+}
