@@ -304,9 +304,118 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 
 12. [箭头函数和普通函数区别是什么？](https://github.com/pro-collection/interview-question/issues/103)
 
+- 语法不同：箭头函数使用箭头 => 来定义函数，而普通函数使用 function 关键字来定义函数。
+
+- 箭头函数没有自己的 this，会捕获其所在上下文的 this，作为自己的 this。而普通函数的 this 则由函数调用时的上下文所决定，可以通过 call、apply、bind 方法来改变。
+
+- 箭头函数没有自己的 arguments 对象，它可以通过 rest 参数语法来接收不定数量的参数。而普通函数则有自己的 arguments 对象，它可以接收任意数量的参数。
+
+- 箭头函数不能作为构造函数使用，不能使用 new 来实例化，因为它没有自己的 this，而普通函数可以用 new 来创建新的对象。
+
+- 箭头函数不能使用 yield 关键字来定义生成器函数，而普通函数可以。
+
+- 使用 call(),apply(),bind()并不会改变箭头函数中的 this 指向。
+
+- 箭头函数没有 prototype 属性
+
+- 原型函数不能定义成箭头函数
+
+```
+function Person(name){
+  this.name = name
+}
+
+// 原型函数使用箭头函数，其中的this指向全局对象，而不会指向构造函数
+// 因此访问不到构造函数本身，也就访问不到实例属性
+Person.prototype.say = ()=>{console.log(this.name)}
+```
+
 13. 使用 new 创建对象的过程是什么样的？
 
 14. [this 指向系列问题。](https://github.com/pro-collection/interview-question/issues/519) / [哪些原因会导致 js 里 this 指向混乱?](https://github.com/pro-collection/interview-question/issues/388) -- [111](https://juejin.cn/post/6944707409596121102) --- [222](https://juejin.cn/post/7041055543984652319)
+
+- 类中的 this 总是指向调用它的对象
+- 构造函数中的 this 是指向实例的对象，而普通函数的 this 是指向 window。
+
+- 箭头函数的 this 总是指向外层非箭头函数的作用域的 this 指向 一层层向上找【箭头函数的外层如果有普通函数，那么箭头函数的 this 就是这个外层的普通函数的 this，箭头函数的外层如果没有普通函数，那么箭头函数的 this 就是全局变量。】
+
+  ```
+  let obj = {
+    fn:function(){
+        console.log('我是普通函数',this === obj)   // true
+        return ()=>{
+            console.log('我是箭头函数',this === obj) // true
+        }
+    }
+  }
+  console.log(obj.fn()())
+
+  // *************
+
+  let obj = {
+      fn:()=>{
+          console.log(this === window); // true
+      }
+  }
+  console.log(obj.fn())
+  ```
+
+  ```
+  obj.test = ()=>{
+    console.log(this)  // this向外层找就是window
+  }
+
+  ```
+
+  ```
+  obj.test1 = function(){
+    var t = ()=>{
+      console.log(this)  // this向外层找就是function(){} 所以指向 obj
+    }
+    t()
+  }
+  ```
+
+  ```
+  obj.test2 = function(){
+    setTimeout(function(){
+      console.log(this)  // this在function(){} 里所以不需要往外层去找，但是定时器函数中的this指向的是window
+    },100)
+  }
+  ```
+
+---
+
+该箭头函数的 this 向外层找就是函数 t1,函数 t1 没有任何的指向,所以指向 window。
+
+```
+obj.test4 = function(){
+  console.log(this)  // obj
+  var t1 = function(){
+  console.log(this) // window
+    var t2 = ()=>{
+      console.log(this) // window
+    }
+    t2()
+  }
+  t1()
+}
+```
+
+function t(){}没有任何指向,所以指向 window,test3 被 obj2 引用所以指向 obj2
+
+```
+var obj2 = {
+  a:1,
+  test3:function(){
+    console.log(this)  // obj2
+    function t(){
+      console.log(this)  // window
+    }
+    t()
+  }
+}
+```
 
 15. [谈谈对闭包的理解？什么是闭包？闭包有哪些应用场景？闭包有什么缺点？如何避免闭包？](https://github.com/pro-collection/interview-question/issues/37)
 
