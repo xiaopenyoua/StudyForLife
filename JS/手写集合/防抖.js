@@ -37,3 +37,16 @@ function debounce(fn, wait, immediate) {
 
   return debounced
 }
+
+const fn = debounce(
+  function (i) {
+    console.log(i, 11111111)
+  },
+  1000,
+  false
+)
+
+fn(1)
+fn(2)
+fn(3)
+fn(4)
