@@ -419,33 +419,45 @@ var obj2 = {
 
 15. [谈谈对闭包的理解？什么是闭包？闭包有哪些应用场景？闭包有什么缺点？如何避免闭包？](https://github.com/pro-collection/interview-question/issues/37)
 
-16. [谈谈对 js 事件循环的理解？](https://github.com/pro-collection/interview-question/issues/142)
+    1. 不使用 prototype 属性定义的对象方法，是静态方法，只能直接用类名进行调用！另外，此静态方法中无法使用 this 变量来调用对象其他的属性！
+    2. 使用 prototype 属性定义的对象方法，是非静态方法，只有在实例化后才能使用！其方法内部可以 this 来引用对象自身中的其他属性！
+    3. 闭包的实现原理，其实是利用了作用域链的特性
+    4. 作用
+       - 匿名自执行函数
+       - 结果缓存
+       - 封装
+       - 实现类和继承
+    5. 缺点
+       - 由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在 IE 中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+       - 闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
 
-17. [谈谈对 promise 理解？](https://github.com/febobo/web-interview/blob/master/docs/es6/promise.md)
+1. [谈谈对 js 事件循环的理解？](https://github.com/pro-collection/interview-question/issues/142)
 
-18. [手写 Promise。](https://github.com/pro-collection/interview-question/issues/57)
+1. [谈谈对 promise 理解？](https://github.com/febobo/web-interview/blob/master/docs/es6/promise.md)
 
-19. [实现 Promise.all 方法。](https://github.com/pro-collection/interview-question/issues/107)
+1. [手写 Promise。](https://github.com/pro-collection/interview-question/issues/57)
 
-20. [Typescript 中 type 和 interface 的区别是什么？](https://github.com/pro-collection/interview-question/issues/273)
+1. [实现 Promise.all 方法。](https://github.com/pro-collection/interview-question/issues/107)
 
-21. [讲讲 Typescript 中的泛型？](https://github.com/febobo/web-interview/blob/master/docs/typescript/generic.md)
+1. [Typescript 中 type 和 interface 的区别是什么？](https://github.com/pro-collection/interview-question/issues/273)
 
-22. [Typescript 如何实现一个函数的重载？](https://juejin.cn/post/7201883287938007096)
+1. [讲讲 Typescript 中的泛型？](https://github.com/febobo/web-interview/blob/master/docs/typescript/generic.md)
 
-23. [CmmonJS 和 ESM 区别？](https://segmentfault.com/a/1190000043720379)
+1. [Typescript 如何实现一个函数的重载？](https://juejin.cn/post/7201883287938007096)
 
-24. [柯里化是什么？有什么用？怎么实现？](https://github.com/pro-collection/interview-question/issues/361)
+1. [CmmonJS 和 ESM 区别？](https://segmentfault.com/a/1190000043720379)
 
-25. [讲讲 js 垃圾回收机制。](https://github.com/pro-collection/interview-question/issues/118)
+1. [柯里化是什么？有什么用？怎么实现？](https://github.com/pro-collection/interview-question/issues/361)
 
-26. 实现一个发布订阅。
+1. [讲讲 js 垃圾回收机制。](https://github.com/pro-collection/interview-question/issues/118)
 
-27. [如何实现数组扁平化？](https://juejin.cn/post/7024337692108259365)
+1. 实现一个发布订阅。
 
-28. 如何实现数组去重？
+1. [如何实现数组扁平化？](https://juejin.cn/post/7024337692108259365)
 
-29. [如何将 JavaScript 代码解析成抽象语法树(AST)](https://github.com/pro-collection/interview-question/issues/357)
+1. 如何实现数组去重？
+
+1. [如何将 JavaScript 代码解析成抽象语法树(AST)](https://github.com/pro-collection/interview-question/issues/357)
 
 [axios 是如何区分是 nodejs 环境还是 浏览器环境 的](https://github.com/pro-collection/interview-question/issues/574)
 
