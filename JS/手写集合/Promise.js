@@ -123,6 +123,7 @@ class GPromise {
           }
         })
       } else if (this.PromiseState === GPromise.PENDING) {
+        // 如果 Promise 当前的状态是 PENDING，则将回调函数添加到对应的回调数组中
         this.onFulfilledCallbacks.push(() => {
           setTimeout(() => {
             try {
