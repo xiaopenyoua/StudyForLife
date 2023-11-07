@@ -12,8 +12,12 @@ class GPromise {
     this.PromiseState = GPromise.PENDING // 初始化Promise的状态为PENDING
     this.PromiseResult = undefined // 初始化Promise的值为undefined
 
+    // Promise是可以多次调用then方法的, 应当是个数组结构,接收多个then内传入的方法；
     this.onFulfilledCallbacks = [] // 存储Promise成功状态下的回调函数
     this.onRejectedCallbacks = [] // 存储Promise失败状态下的回调函数
+
+    // func是同步执行resolve或者reject时，在调用.then时，状态已经不再是pending，则直接调用 onFulfilledCallback 或者 onRejectedCallback即可
+    // 当func是异步执行resolve或者reject时，调用.then时状态还处于 pending。 需要将onFulfilledCallback、onRejectedCallback保存起来，通过resolve/reject来执行回调。
 
     // 定义resolve函数，用于将Promise状态改为FULFILLED，并执行成功状态下的回调函数
     const resolve = (result) => {
@@ -77,6 +81,7 @@ class GPromise {
    * @param {function} onRejected  rejected状态时 执行的函数
    * @returns {function} newPromsie  返回一个新的promise对象
    */
+  // onFulfilled 和 onRejected 应该是微任务，会立即执行，不能达到异步的效果
   then(onFulfilled, onRejected) {
     // 如果onFulfilled不是一个函数，则将其更改为返回接收到的值的函数
     if (typeof onFulfilled !== 'function') {
@@ -92,6 +97,9 @@ class GPromise {
       }
     }
 
+    // then 方法中的难点就是处理异步, 使用 setTimeout 一旦对象的状态改变
+    // 则执行相应then 中相应的回调函数(onfulfilled和onrejected)
+    // 这样回调函数就能够插入事件队列末尾，异步执行
     let promise2 = new GPromise((resolve, reject) => {
       if (this.PromiseState === GPromise.FULFILLED) {
         setTimeout(() => {
@@ -106,6 +114,9 @@ class GPromise {
         setTimeout(() => {
           try {
             let value = onRejected(this.PromiseResult)
+            // 这里使用resolve而不是reject
+            // 是因为当我们在then方法中的onRejected 接收到了上一个错误，说明我们对预期的错误进行了处理，
+            // 进行下一层传递时应该执行下一个then的onFulfilled，除非在执行本次resolve时又出现了其他错误
             resolve(value)
           } catch (err) {
             reject(err)
@@ -116,6 +127,7 @@ class GPromise {
           setTimeout(() => {
             try {
               let value = onFulfilled(this.PromiseResult)
+              // 如果 value 也是一个 GPromise 的话，那么promise2的状态就要取决于 value 的状态
               if (value instanceof GPromise) {
                 value.then(resolve, reject)
               } else {
@@ -131,7 +143,11 @@ class GPromise {
           setTimeout(() => {
             try {
               let value = onRejected(this.PromiseResult)
-              resolve(value)
+              if (value instanceof GPromise) {
+                value.then(resolve, reject)
+              } else {
+                resolve(value)
+              }
             } catch (err) {
               reject(err)
             }
@@ -140,7 +156,7 @@ class GPromise {
       }
     })
 
-    return promise2
+    return promise2 // 链式调用
   }
 
   /**
