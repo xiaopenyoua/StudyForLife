@@ -20,30 +20,30 @@
 
 - 容器属性
 
-  - flex-direction
+  - flex-direction - 决定主轴的方向
     - row（默认值）：主轴为水平方向，起点在左端。
     - row-reverse：主轴为水平方向，起点在右端。
     - column：主轴为垂直方向，起点在上沿。
     - column-reverse：主轴为垂直方向，起点在下沿。
-  - flex-wrap
+  - flex-wrap - 如何换行
     - nowrap（默认）：不换行，按正常的流动方向排列。
     - wrap：换行，按正常的流动方向排列。
     - wrap-reverse：换行，按相反的流动方向排列。
   - flex-flow
     - flex-direction 与 flex-wrap 简写形式，定义项目的排列方向,默认值为 row nowrap。
-  - justify-content
+  - justify-content - 项目在主轴上的对齐方式。
     - flex-start（默认值）：左对齐
     - flex-end：右对齐
     - center：居中
     - space-between：两端对齐，项目之间的间隔都相等。
     - space-around：每个项目两侧的间隔相等。
-  - align-items
+  - align-items - 项目在交叉轴上如何对齐。
     - flex-start（默认值）：交叉轴的起点对齐。
     - flex-end：交叉轴的终点对齐。
     - center：交叉轴的中点对齐。
     - baseline：项目的基线对齐。
     - stretch（默认值）：如果项目未设置高度或设为 auto，将占满整个容器的高度。
-  - align-content - 定义了多根轴线的对齐方式。
+  - align-content - 定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用
     - flex-start（默认值）：与交叉轴的起点对齐。
     - flex-end：与交叉轴的终点对齐。
     - center：与交叉轴的中点对齐。
