@@ -1,22 +1,24 @@
 function myInstanceOf(left, right) {
-  // 左侧是基础数据类型直接返回 false
-
+  // 判断左侧是否为基数据类型，如果是直接返回 false
   if (left !== null && !['object', 'function'].includes(typeof left)) {
     return false
   }
 
+  // 获取左侧对象的原型和右侧构造函数的原型
   let proto = left.__proto__,
     prototype = right.prototype
 
-  // 这两个值不相等就一直往上找 __proto__
+  // 如果两个值不相等，则继续向上查找原型链的 __proto__ 属性，直到找到相等的值或原型链的根对象
   while (proto != prototype) {
     proto = proto.__proto__
 
+    // 如果原型链的根对象被找到，则返回 false
     if (proto === null) {
       return false
     }
   }
 
+  // 返回 true，表示左侧对象是右侧构造函数创建的对象
   return true
 }
 
