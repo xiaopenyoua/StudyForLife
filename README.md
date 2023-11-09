@@ -684,8 +684,12 @@ React 的设计思路为：当我们更新应用状态的时候，可以赋予�
 
 [灵魂拷问——有 react fiber，为什么不需要 vue fiber 呢](https://juejin.cn/post/7077545184807878692?searchId=20231018150338D8A6D23C3F3FA5A206AE)
 
+React Fiber 和 Vue 的设计理念有所不同，这也是为什么 Vue 不需要 Fiber 的原因。
+
 - react、vue 的响应式原理
-  - 在 react 中，组件的状态是不能被修改的，setState 没有修改原来那块内存中的变量，而是去新开辟一块内存； 而 vue 则是直接修改保存状态的那块原始内存。
+
+  - React 中，当组件的状态更新时，会自顶向下重新渲染组件，也就是说，该组件以及它的子组件全部需要渲染, 而在 react 中，组件的状态是不能被修改的，setState 没有修改原来那块内存中的变量，而是去新开辟一块内存； 而 vue 则是直接修改保存状态的那块原始内存。
+
   - 数据修改了，接下来要解决视图的更新：react 中，调用 setState 方法后，会自顶向下重新渲染组件，自顶向下的含义是，该组件以及它的子组件**全部需要渲染**；而 vue 使用 Object.defineProperty（vue@3 迁移到了 Proxy）对数据的设置（setter）和获取（getter）做了劫持，也就是说，vue 能准确知道视图模版中哪一块用到了这个数据，精确到当前组件的粒度。
 
 React [生命周期](https://github.com/pro-collection/interview-question/issues/301)有哪些？React16 废弃了哪些？为什么要废弃？新增的生命周期钩子有哪些？有什么作用？
