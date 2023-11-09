@@ -445,6 +445,15 @@ var obj2 = {
 
 1. [Typescript 如何实现一个函数的重载？](https://juejin.cn/post/7201883287938007096)
 
+当我们多次调用函数时传递不同参数数量或者类型，函数会做出不同处理。
+**「函数签名」**，顾名思义，函数签名主要定义了参数及参数类型，返回值及返回值类型。函数签名不同，函数会做出不同的处理，这是我对函数重载的理解。
+
+- 构造器重载
+- 联合类型函数重载
+- JS 中函数重载
+  - 利用 arguments 参数
+  - 利用闭包和 arguments
+
 1. [CmmonJS 和 ESM 区别？](https://segmentfault.com/a/1190000043720379)
 
 1. [柯里化是什么？有什么用？怎么实现？](https://github.com/pro-collection/interview-question/issues/361)
@@ -696,7 +705,29 @@ React [生命周期](https://github.com/pro-collection/interview-question/issues
 
 [开发过程中有哪些性能优化手段](https://github.com/pro-collection/interview-question/issues/305)
 
-[讲讲 React 事件绑定原理。](https://github.com/pro-collection/interview-question/issues/336)
+[讲讲 React 事件绑定原理。](https://github.com/pro-collection/interview-question/issues/336) --- [**补充**](https://www.jianshu.com/p/1b50aab9168c)
+
+react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在 dom 上，而是把事件统一绑定到 document 中，触发时通过事件冒泡到 document 进行触发合成事件，因为是合成事件，所以我们无法去使用 e.stopPropagation 去阻止，而是使用 e.preventDefault 去阻止。
+
+- **事件注册**：组件更新或者装载时，在给 dom 增加合成事件时，需要将增加的 target 传入到 document 进行判断，给 document 注册原生事件回调为 dispatchEvent(统一的事件分发机制)。
+
+- **事件存储**：**EventPluginHub**负责管理 React 合成事件的 callback,它将 callback 存储到 listennerBank 中，Event 存储到 listennerbank 中，每一个元素在 listennerBank 中会有唯一的 key。
+
+- **事件触发执行**：当事件发生时，冒泡到 docunment 中, 会从 document 中触发原生事件，然后会触发 EventPluginHub 进行分发,分发到对应的监听器中，根据唯一 key 获取到指定的回调函数，再返回带有参数的回调函数，然后执行监听器中的回调。
+
+- **事件移除**：当组件卸载时，会从 document 中移除对应的合成事件，然后会从 EventPluginHub 中移除对应的监听器。
+
+- **合成事件**：循环所有类型的 eventPlugin，对应每个事件类型，生成不同的事件池，如果是空，则生成新的，有则用之前的，根据唯一 key 获取到指定的回调函数，再返回带有参数的回调函数。
+
+- **为什么这么做？**
+
+  - **抹平浏览器之间的兼容性差异**。 这是估计最原始的动机，React 根据 W3C 规范来定义这些合成事件(SyntheticEvent), 意在抹平浏览器之间的差异。另外 React 还会试图通过其他相关事件来模拟一些低版本不兼容的事件, 这才是‘合成’的本来意思吧？。
+  - **事件‘合成’, 即事件自定义**。事件合成除了处理兼容性问题，还可以用来自定义高级事件，比较典型的是 React 的 onChange 事件，它为表单元素定义了统一的值变动事件。另外第三方也可以通过 React 的事件插件机制来合成自定义事件，尽管很少人这么做。
+  - **抽象跨平台事件机制**。 和 VirtualDOM 的意义差不多，VirtualDOM 抽象了跨平台的渲染方式，那么对应的 SyntheticEvent 目的也是想提供一个抽象的跨平台事件机制。
+
+  - **React 打算做更多优化**。比如利用事件委托机制，大部分事件最终绑定到了 根 root 上， 这样简化了 DOM 事件处理逻辑，减少了内存开销. 但这也意味着，React 需要自己模拟一套事件冒泡的机制。
+
+  - **React 打算干预事件的分发**。v16 引入 Fiber 架构，React 为了优化用户的交互体验，会干预事件的分发。不同类型的事件有不同的优先级，比如高优先级的事件可以中断渲染，让用户代码可以及时响应用户交互。
 
 讲讲 React 的 hooks，有什么好处？[有哪些常用的 hook？](https://github.com/pro-collection/interview-question/issues/302)
 
