@@ -711,7 +711,7 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 - **事件注册**：组件更新或者装载时，在给 dom 增加合成事件时，需要将增加的 target 传入到 document 进行判断，给 document 注册原生事件回调为 dispatchEvent(统一的事件分发机制)。
 
-- **事件存储**：**EventPluginHub**负责管理 React 合成事件的 callback,它将 callback 存储到 listennerBank 中，Event 存储到 listennerbank 中，每一个元素在 listennerBank 中会有唯一的 key。
+- **事件存储**：**EventPluginHub**负责管理 React 合成事件的 callback,它将 callback 存储到 listennerBank 中，另外还存储了负责合成事件的 Plugin，每一个元素在 listennerBank 中会有唯一的 key。
 
 - **事件触发执行**：当事件发生时，冒泡到 docunment 中, 会从 document 中触发原生事件，然后会触发 EventPluginHub 进行分发,分发到对应的监听器中，根据唯一 key 获取到指定的回调函数，再返回带有参数的回调函数，然后执行监听器中的回调。
 
