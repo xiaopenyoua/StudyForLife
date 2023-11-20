@@ -894,7 +894,16 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 [进程与线程区别是什么？](https://github.com/pro-collection/interview-question/issues/409)
 
+- **定义**：进程是程序的一次执行过程，是资源分配的基本单位；线程是进程的一部分，是程序执行的最小单位。
+- **资源拥有** - 每个进程都拥有独立的内存空间和系统资源，包括文件、设备、网络连接等；而线程是在进程内部共享进程的资源。
+- **调度和执行** - 操作系统以进程为单位进行调度，给每个进程分配 CPU 时间片来执行；而线程是进程内部的执行单元，由线程调度器调度执行。
+- **并发性** - 由于进程拥有独立的内存空间和资源，不同进程之间可以并发执行，相互之间不会影响；而线程是在同一个进程内部执行，多个线程共享进程的资源，因此线程之间需要通过同步机制来保证数据的一致性和安全性。
+- **创建和销毁** - 创建和销毁进程需要操作系统的参与，而线程的创建和销毁相对较轻量，可以由程序自身来控制。
+- **开销** - 由于进程拥有独立的资源和内存空间，进程之间切换的开销较大；而线程之间的切换开销较小，因为线程共享进程的资源和内存空间。
+
 [讲讲 TCP 三次握手、四次挥手，为什么要三次握手、四次挥手？](https://github.com/febobo/web-interview/issues/151)
+
+- 因为三次握手才能保证双方具有接收和发送的能力, 三次握手才可以同步双方的初始序列号从而阻止旧的重复连接初始化 造成混乱，避免资源浪费
 
 [TCP 三次握手过程](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#tcp-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84)
 
@@ -910,19 +919,42 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 - [TCP 什么是 SYN 攻击？如何避免 SYN 攻击？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E4%BB%80%E4%B9%88%E6%98%AF-syn-%E6%94%BB%E5%87%BB-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D-syn-%E6%94%BB%E5%87%BB)
 
+在 TCP 三次握手的时候，Linux 内核会维护两个队列，分别是：
+
+- 半连接队列，也称 SYN 队列；
+- 全连接队列，也称 accept 队列；
+
 ---
 
 [TCP 四次挥手过程是怎样的？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#tcp-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84)
+![Alt text](image-5.png)
 
 - [为什么挥手需要四次？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8C%A5%E6%89%8B%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AC%A1)
 
+- [TCP 四次挥手，可以变成三次吗？](https://xiaolincoding.com/network/3_tcp/tcp_three_fin.html)
+
+  - 「当服务端没有数据要发送」并且「开启了 **TCP 延迟确认机制**」，那么第二和第三次挥手就会合并传输，这样就出现了三次挥手。CP 延迟确认的策略：
+    - 当有响应数据要发送时，ACK 会随着响应数据一起立刻发送给对方
+    - 当没有响应数据要发送时，ACK 将会延迟一段时间，以等待是否有响应数据可以一起发送
+    - 如果在延迟等待发送 ACK 期间，对方的第二个数据报文又到达了，这时就会立刻发送 ACK
+
 - [第一次挥手丢失了，会发生什么？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8C%A5%E6%89%8B%E4%B8%A2%E5%A4%B1%E4%BA%86-%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88)
+
+  - 触发超时重传机制，超过重传次数后，会再等待一段时间（时间为上一次超时时间的 2 倍），如果还是没能收到第二次挥手，那么直接进入到 close 状态
 
 - [第二次挥手丢失了，会发生什么？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%8C%A5%E6%89%8B%E4%B8%A2%E5%A4%B1%E4%BA%86-%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88)
 
+  - ACK 报文是不会重传的，所以如果服务端的第二次挥手丢失了，客户端就会触发超时重传机制，重传 FIN 报文，直到收到服务端的第二次挥手，或者达到最大的重传次数，进入到 close 状态
+
 - [第三次挥手丢失了，会发生什么？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E7%AC%AC%E4%B8%89%E6%AC%A1%E6%8C%A5%E6%89%8B%E4%B8%A2%E5%A4%B1%E4%BA%86-%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88)
 
+  - 服务端就会重发 FIN 报文，超过重传次数后再等待一段时间（时间为上一次超时时间的 2 倍），如果还是没能收到客户端的第四次挥手（ACK 报文），那么服务端就会断开连接。
+  - 客户端因为是通过 close 函数关闭连接的，处于 FIN_WAIT_2 状态是有时长限制的，如果 tcp_fin_timeout 时间内还是没能收到服务端的第三次挥手（FIN 报文），那么客户端就会断开连接。
+
 - [第四次挥手丢失了，会发生什么？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E7%AC%AC%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E4%B8%A2%E5%A4%B1%E4%BA%86-%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88)
+
+  - 服务端就会重发 FIN 报文，达到了最大重传次数，于是再等待一段时间（时间为上一次超时时间的 2 倍），如果还是没能收到客户端的第四次挥手（ACK 报文），那么服务端就会断开连接。
+  - 客户端在收到第三次挥手后，就会进入 TIME_WAIT 状态，开启时长为 2MSL 的定时器，如果途中再次收到第三次挥手（FIN 报文）后，就会重置定时器，当等待 2MSL 时长后，客户端就会断开连接。
 
 - [为什么 TIME_WAIT 等待的时间是 2MSL？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E4%B8%BA%E4%BB%80%E4%B9%88-time-wait-%E7%AD%89%E5%BE%85%E7%9A%84%E6%97%B6%E9%97%B4%E6%98%AF-2msl)
 
@@ -932,6 +964,21 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 [TCP 和 UDP 区别是什么？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#udp-%E5%92%8C-tcp-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E5%91%A2-%E5%88%86%E5%88%AB%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E6%98%AF)
 
+- **连接**
+  - TCP 是面向连接的传输层协议，传输数据前先要建立连接。
+  - UDP 是不需要连接，即刻传输数据。
+- **服务对象**
+  - TCP 是一对一的两点服务，即一条连接只有两个端点。
+  - UDP 支持一对一、一对多、多对多的交互通信
+- 可靠性
+  - TCP 是可靠交付数据的，数据可以无差错、不丢失、不重复、按序到达。
+  - UDP 是尽最大努力交付，不保证可靠交付数据。
+- 拥塞控制、流量控制
+  - TCP 有拥塞控制和流量控制机制，保证数据传输的安全性。
+  - UDP 则没有，即使网络非常拥堵了，也不会影响 UDP 的发送速率。
+- 传输方式
+  - TCP 是流式传输，没有边界，但保证顺序和可靠。
+  - UDP 是一个包一个包的发送，是有边界的，但可能会丢包和乱序。
 ---
 
 # 网络通信
