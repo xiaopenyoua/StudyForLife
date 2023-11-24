@@ -273,6 +273,8 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 - `postcss-nested` - 允许使用嵌套的 CSS
 - `postcss-modules` - 可以将样式文件转换为 CSS Modules 格式
 
+21. [1px(线条/边框) 不同机型上显示粗细不同](https://blog.csdn.net/m0_57033755/article/details/134332547)
+
 # JavaScript
 
 1. [谈谈对原型链的理解。](https://github.com/pro-collection/interview-question/issues/32)
@@ -439,6 +441,86 @@ var obj2 = {
 
 1. [实现 Promise.all 方法。](https://github.com/pro-collection/interview-question/issues/107)
 
+1. async / await
+
+- **什么是 async、await?**
+
+  > `async` 函数是一个返回 `Promise` 对象的函数。它使用 async 关键字声明，并且在函数体内部可以使用 `await` 关键字来等待 `Promise` 对象的解决(resolved)拒绝(rejected)状态。async 函数通过返回个 Promise 对象来传递其结果。
+
+  > `await` 关键字只能在 `async` 函数内部使用。它可以暂停 `async` 函数的执行，等待一个 `Promise` 对象的解决，并返回 `Promise` 对象的结果。在等待期间，`JavaScript` 运行时可以继续执行其他任务，这样可以避免阻塞整个线程。
+
+  使用 `async/await` 可以使异步代码的编写更加简洁和易读，避免了传统的回调函数嵌套(callback hell)和 `Promise` 链式调用的复杂性。它使开发者可以以同步的方式编写异步代码，提高了代码的可读性和可维护性。
+
+  - **async 函数的设计**
+
+    1. `async` 关键字用于声明一个函数为异步函数，使其返回一个 `Promise` 对象。
+    2. 异步函数内部可以包含异步操作，可以使用 `await` 关键字等待 `Promise` 对象的解决。
+    3. 异步函数可以通过 `return` 语句返回一个值，该值会被包装成一个已解决的 `Promise` 对象。
+
+  - **await 表达式的设计**
+
+    1. `await` 关键字只能在异步函数内部使用。
+    2. `await` 关键字后面可以跟随一个 `Promise` 对象或任何其他值。
+    3. 如果 `await` 关键字后面的值是一个 `Promise` `对象，await` 表达式会暂停异步函数的执行，直到该 `Promise` 对象解决，并返回解决值。
+    4. 如果 `await` 关键字后面的值不是 `Promise` 对象，则会将其包装成一个已解决的 `Promise` 对象，并立即返回该对象。
+
+- **`async/await` 和 `Promise` 有什么区别？**
+  `async/await` 和 `Promise` 是 `JavaScript` 中处理异步操作的两种不同的方式
+
+  - **语法风格**：
+    - Promise 使用链式调用的方式，通过调用 then()和 catch()方法来处理异步操作的结果和错误。
+    - async/await 使用更类似同步代码的语法风格，通过 async 函数和 await 表达式来编写异步操作的流程。
+  - **错误处理**：
+    - Promise 使用 catch()方法来捕获和处理异步操作的错误
+    - async/await 使用 try-catch 块来捕获和处理异步操作的错误。这使得错误处理更加直观和类似同步代码的风格。
+  - **可读性**：
+    - async/await 的语法更加直观和易读，代码的执行流程更接近同步代码的执行顺序，使得异步操作的流程更易理解和维护
+    - Promise 的语法相对较繁琐，需要使用 then()和 catch()方法进行链式调用，可读性稍差。
+  - **异步操作的控制**：
+    - Promise 提供了一种更底层的方式来控制异步操作，可以手动创建和解决 Promise 对象，并使用 Promise 的方法（如 `Promise.all()`、`Promise.race()`）来管理多个异步操作。
+    - async/await 则是基于 Promise 的局级语法糖，通过将异步操作转换为 Generator 函数和使用 await 表达式来控制异步操作的执行流程。
+
+- **async、await 的工作原理？**
+
+  1. 当遇到一个使用 async 关键字声明的函数时，它会立即返回一个 Promise 对象。这个 Promise 对象的状态初始化为"pending"（待定）
+  2. 当函数内部遇到一个用 await 关键字等待的 Promise 对象时，它会暂停函数的执行，并将控制权交回给事件循环。同时，它会注册一个微任务，将其添加到微任务队列中。
+  3. 事件循环在下一个迭代中，首先检查微任务队列。如果队列不为空，它会依次执行微任务队列中的回调函数，直到队列为空
+  4. 在执行微任务时，如果遇到其他的 async/await 表达式，它会按照同样的方式处理，即将其包装为 Promise 对象，暂停函数的执行，并将其添加到微任务队列中。
+  5. 当微任务队列为空时，事件循环会检查宏任务队列。它会选择最先进入队列的任务，并执行其回调函数。
+  6. 在执行宏任务时，如果遇到异步操作，例如定时器回调函数事件回调函数，它们会被添加到宏任务队列中。
+  7. 事件循环会一直重复上述步骤，不断地处理微任务队列和宏任务队列，直到两个队列都为空
+  8. 当 async 函数中的所有代码都执行完毕，或者遇到 return 语句时，返回的 Promise 对象的状态会根据最后一个执行的表达式返回值而改变。如果没有显式指定返回值，Promise 对象将变为 resolved（解决）状态，并且其解决值为 undefined
+
+- **`async`、`await` 的实现原理？**
+  `async/await` 是 `ECMAScript 2017 (ES8)` 中引入的异步操作语法糖，其实现原理基于 `Promise` 和生成器(`Generators`)。当函数声明函数表达式带有 `async` 关键字时，它将返回一个 `Promise` 对象。在这个被标记为 `async` 的函数内部，可以使用 `await` 关键字来等待一个 `Promise` 对象解析，并暂停函数的执行，直到 `Promise` 解析完成。
+  实现原理如下：
+
+  1. 将标记为 `async` 的函数转换为一个普通函数，该函数返回一个 `Promise` 对象。
+  2. 使用生成器(Generator)将函数的执行过程分割为多个步骤。生成器是一种特殊的函数，可以暂停和帧复函数的执行。
+  3. 当遇到 `await` 关键字时，它会暂停函数的执行，并等待 `Promise` 对象的解析。暂停函数的状态会被保存。
+  4. 当 `Promise` 对象解析完成后，生成器会帧复函数的执行，并将解析的结果作为表达式的值。
+  5. 如果遇到 `await` 的 `Promise` 对象被拒绝(rejected)，生成器会抛出一个异常，可以使用 `try/catch` 块来捕获异常。
+
+- **`async/await` 能代替 `Promise` 吗？**
+
+  `async/await` 是用于简化异步操作的语法糖，它们本身并不能完全取代 `Promise`。它们是建立在 `Promise` 基础上的，通过提供更直观、更易读的代码来处理异步操作。下面是一些 `async/await` 无法覆盖的情况：
+
+  1. 异步操作的并发控制：使用 `Promise.all()` `Promise.race()`可以同时处理多个异步操作，而 `async/await` 无法直接实现这种并发控制。
+  2. 异步操作的超时控制：通过 `Promise` 可以使用 `setTimeout()`或其他定时器函数来实现异步操作的超时控制，而 `async/await` 并没有直接提供这样的机制。
+  3. 捕获异步操作中的错误：使用 `Promise` 可以通过链式调用的方式捕获和处理异步操作中的错误，而 `async/await` 需要使用 `try/catch` 块来捕获错误。
+
+  虽然 `async/await` 可以大大简化异步操作的编写，但在某些特定的场景下，仍然需要使用 `Promise` 来处理更复杂的异步操作。
+
+- **`async` 、 `await` 如 何 执 行 多 个 异 步 任 务 ？**
+  ![](image-6.jpg)
+
+- **使用 `async` 、 `await` 有哪些注意事项？**
+  ![](image-7.jpg)
+  ![](image-8.jpg)
+  ![](image-9.jpg)
+  ![](image-10.jpg)
+
+
 1. [Typescript 中 type 和 interface 的区别是什么？](https://github.com/pro-collection/interview-question/issues/273)
 
 1. [讲讲 Typescript 中的泛型？](https://github.com/febobo/web-interview/blob/master/docs/typescript/generic.md)
@@ -584,7 +666,7 @@ vue2、vue3 的 diff 算法实现差异主要体现在：`处理完首尾节点�
 最后，会将 `新节点数组的 起始索引 向后移动。`
 
 剩余节点处理：
-![img](![Alt text](image-1.png))
+![Alt text](image-1.png)
 
 ---
 
@@ -979,6 +1061,7 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 - 传输方式
   - TCP 是流式传输，没有边界，但保证顺序和可靠。
   - UDP 是一个包一个包的发送，是有边界的，但可能会丢包和乱序。
+
 ---
 
 # 网络通信
