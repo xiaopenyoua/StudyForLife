@@ -1197,8 +1197,8 @@ http 有哪些方法？
 
 在新版本的 npm (v7) 中，默认情况下， npm install 在遇到冲突 的 peerDependencies 时会失败。以前不是这样的。
 
-- `-f` 或 `–force` 即使磁盘上存在本地副本，也会强制 npm 获取远程资源。当有资源冲突时覆盖掉原先的版本
-- `-legacy-peer-deps`：安装时忽略所有 `peerDependencies`，采用 `npm` 版本 `4` 到版本 `6` 的行为。它告诉 `npm` 忽略项目中引入的各个 `modules` 之间的相同 `modules` 但不同版本的问题并继续安装，保证各个引入的依赖之间对自身所使用的不同版本 `modules` 共存。
+- `-f` 或 `--force` 即使磁盘上存在本地副本，也会强制 npm 获取远程资源。当有资源冲突时覆盖掉原先的版本
+- `--legacy-peer-deps`：安装时忽略所有 `peerDependencies`，采用 `npm` 版本 `4` 到版本 `6` 的行为。它告诉 `npm` 忽略项目中引入的各个 `modules` 之间的相同 `modules` 但不同版本的问题并继续安装，保证各个引入的依赖之间对自身所使用的不同版本 `modules` 共存。
 - `-strict-peer-deps` ：遇到任何冲突的 `peerDependencies` 时失败并中止安装过程。默认情况下，`npm` 只会在根项目的直接依赖引起的 `peerDependencies` 冲突时崩溃。
 
 3. [peerDependencies](https://segmentfault.com/a/1190000041855828#item-4)
