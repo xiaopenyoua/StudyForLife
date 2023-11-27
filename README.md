@@ -1185,10 +1185,51 @@ http 有哪些方法？
 
 # npm
 
-[npm install 发生了啥](https://juejin.cn/post/7204307381689532474#heading-118)
-![Alt text](image.png)
+1. [npm install 发生了啥](https://juejin.cn/post/7204307381689532474#heading-118)
 
----
+- 查找 npm 的配置信息
+- 构建依赖树
+- 根据依赖树下载完整的依赖资源
+- 生成 package-lock.json 文件
+  ![Alt text](image.png)
+
+2. [npm `--force` 和 `--legacy-peer-deps` 参数]()
+
+在新版本的 npm (v7) 中，默认情况下， npm install 在遇到冲突 的 peerDependencies 时会失败。以前不是这样的。
+
+- `-f` 或 `–force` 即使磁盘上存在本地副本，也会强制 npm 获取远程资源。当有资源冲突时覆盖掉原先的版本
+- `-legacy-peer-deps`：安装时忽略所有 `peerDependencies`，采用 `npm` 版本 `4` 到版本 `6` 的行为。它告诉 `npm` 忽略项目中引入的各个 `modules` 之间的相同 `modules` 但不同版本的问题并继续安装，保证各个引入的依赖之间对自身所使用的不同版本 `modules` 共存。
+- `-strict-peer-deps` ：遇到任何冲突的 `peerDependencies` 时失败并中止安装过程。默认情况下，`npm` 只会在根项目的直接依赖引起的 `peerDependencies` 冲突时崩溃。
+
+3. [peerDependencies](https://segmentfault.com/a/1190000041855828#item-4)
+
+`peerDependencies` 字段里的第三方包并不是我们的 npm 包里使用的，也不是在开发环境中会用到的包，而是在第三方引用我们的时候，我们所能适配的包。
+
+在以前版本的 npm (4-6) 中，**对等依赖**项冲突会发出版本不兼容的警告，但仍会安装依赖项而不会出现错误。如果存在无法自动解决的上游依赖项冲突，npm 7 将阻止安装。
+
+- peerDependencies 和 dependencies 最大的区别就是，dependencies 字段会出现 node_modules 嵌套的情况，但 peerDependencies 字段是不会出现 node_modules 嵌套的情况的。
+
+- [peerDependency 就可以避免类似的核心依赖库被重复下载的问题](https://segmentfault.com/a/1190000022435060)
+
+  - 如果用户显式依赖了核心库，则可以忽略各插件的 `peerDependency` 声明；
+  - 如果用户没有显式依赖核心库，则按照插件 `peerDependencies` 中声明的版本将库安装到项目根目录中；
+  - 当用户依赖的版本、各插件依赖的版本之间不相互兼容，会报错让用户自行修复；【`peerDependencies` 让依赖平铺在根 `node_modules` 里面，这样就会出现同一个依赖不同版本的冲突 】
+
+4. [npm ci](https://blog.csdn.net/weixin_43239880/article/details/125665303)
+
+5. [package-lock.json](https://developer.aliyun.com/article/1203010)
+   `package.json` 里面的包版本不是一个具体的版本，而是一个最优版本。而 `package-lock.json` 里面定义的是某个包的具体版本，以及包之间的层叠关系。
+   - 什么情况下 `package.json` 和 `package-lock.json` 里面的版本号**一致**?
+     当 `package.json` 里面不再使用最优版本，而是一个特定有效版本，也就是版本号前不带修饰符，这样 `package.json` 和 `package-lock.json` 里面的版本号才是一致的。
+   - `package-lock.json` 什么时候会变
+     1. `package-lock.json` 在 **`npm install`** 的时候会自动生成。
+     2. 当我们**修改依赖位置**，比如将部分包的位置从 dependencies 移动到 devDependencies 这种操作，虽然包未变，但是也会影响 package-lock.json，会将部分包的 dev 字段设置为 true。
+     3. 还有如果我们**安装源 `registry` 不同**，执行 npm install 时也会修改 package-lock.json。
+6. `npm` `package.json` 中 `dependencies` 的版本号前的符号是什么意思?
+
+- **`^`** : 表示可以接受该版本的`主要版本号`不变，但接受更新的`次要版本号`和`修订版本号`
+- **`~`** : 表示可以接受该版本的`主要版本号`和`次要版本号`不变，但接受`修订版本号`的更新。【例如，`~1.2.3` 允许安装 `1.2.3`、`1.2.4`，但不接受 `1.3.0`。】
+- **`>`、`>=`、`<`、`<=`** : 用于指定具体的版本要求或范围
 
 [浏览器篇](https://juejin.cn/post/7203180003470311483)
 [JS 篇](https://juejin.cn/post/7202904269535887418#heading-1)
