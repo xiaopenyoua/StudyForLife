@@ -784,6 +784,8 @@ React Fiber 和 Vue 的设计理念有所不同，这也是为什么 Vue 不需�
 
 React [生命周期](https://github.com/pro-collection/interview-question/issues/301)有哪些？React16 废弃了哪些？为什么要废弃？新增的生命周期钩子有哪些？有什么作用？
 
+[类组件的生命周期， 映射的 hooks 哪些 api ?](https://github.com/pro-collection/interview-question/issues/627)
+
 [开发过程中有哪些性能优化手段](https://github.com/pro-collection/interview-question/issues/305)
 
 [讲讲 React 事件绑定原理。](https://github.com/pro-collection/interview-question/issues/336) --- [**补充**](https://www.jianshu.com/p/1b50aab9168c)
@@ -869,11 +871,13 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 [浏览器本身是不支持模块化的, webpack 是如何通过文件打包，让浏览器可以读取到前端各个模块的代码的](https://github.com/pro-collection/interview-question/issues/502)
 
+[Webpack vs Vite的核心差异](https://juejin.cn/post/7273427487588843581)
+
 ---
 
 # 性能优化
 
-前端页面性能如何优化
+[页面加载速度提升（性能优化）应该从哪些方向来思考?](https://github.com/pro-collection/interview-question/issues/638)
 
 [讲讲回流和重绘的区别，如何避免回流和重绘？](https://github.com/febobo/web-interview/blob/master/docs/css/layout_painting.md)
 
@@ -1113,6 +1117,8 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 [什么是跨域？为什么会出现跨域？如何解决跨域问题？](https://juejin.cn/post/7092022569276014623)
 
+[webpack proxy工作原理](https://github.com/febobo/web-interview/blob/master/docs/webpack/proxy.md)
+
 [jsonp 原理 是什么？](https://github.com/pro-collection/interview-question/issues/15)
 
 [CORS 是如何实现跨域的？](https://github.com/pro-collection/interview-question/issues/14)
@@ -1233,6 +1239,12 @@ http 有哪些方法？
 
 [浏览器篇](https://juejin.cn/post/7203180003470311483)
 [JS 篇](https://juejin.cn/post/7202904269535887418#heading-1)
+
+# 前端
+
+[在前端应用如何进行权限设计？](https://github.com/pro-collection/interview-question/issues/632)
+
+[token 进行身份验证了解多少？](https://github.com/pro-collection/interview-question/issues/633)
 
 ## 问题
 
