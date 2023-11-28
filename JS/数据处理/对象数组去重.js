@@ -41,7 +41,7 @@ function equals(v1, v2) {
   }
 
   for (const key of keys1) {
-    if (!v2[key]) {
+    if (!v2.hasOwnProperty(key)) {
       return false
     }
     const res = equals(v1[key], v2[key])
@@ -54,16 +54,14 @@ function equals(v1, v2) {
   return true
 }
 
+const arr1 = [1, [2, 3], { name: 'John', age: null }]
+const arr2 = [1, [2, 3], { name: 'John', age: null }]
+const arr3 = [1, [2, 3], { name: 'LiBai' }]
 
-const arr1 = [1, [2, 3], { name: 'John' }];
-const arr2 = [1, [2, 3], { name: 'John' }];
-const arr3 = [1, [2, 3], { name: 'LiBai' }];
-
-console.log(equals(arr1, arr2)); // true
-console.log(equals(arr1, arr3)); // false
+console.log(equals(arr1, arr2)) // true
+console.log(equals(arr1, arr3)) // false
 
 console.log(newArr)
-
 
 const obj1 = {
   name: 'John',
@@ -72,7 +70,7 @@ const obj1 = {
     street: '123 Main St',
     city: 'New York'
   }
-};
+}
 
 const obj2 = {
   name: 'John',
@@ -81,7 +79,7 @@ const obj2 = {
     street: '123 Main St',
     city: 'New York'
   }
-};
+}
 
 const obj3 = {
   name: 'Jane',
@@ -90,7 +88,7 @@ const obj3 = {
     street: '456 Park Ave',
     city: 'Los Angeles'
   }
-};
+}
 
-console.log(equals(obj1, obj2)); // true
-console.log(equals(obj1, obj3)); // false
+console.log(equals(obj1, obj2)) // true
+console.log(equals(obj1, obj3)) // false
