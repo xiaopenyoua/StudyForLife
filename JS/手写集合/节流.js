@@ -36,7 +36,7 @@ function throttlo(fn, wait) {
 
 function test() {
   console.log('test')
-  console.log(this)
+  // console.log(this)
 }
 
-throttlo(test(), 1000)()
+throttlo(test, 1000)()
