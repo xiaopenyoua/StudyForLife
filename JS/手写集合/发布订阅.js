@@ -1,5 +1,7 @@
 class Observer {
-  caches = {} // 事件中心
+  constructor() {
+    this.caches = {} // 事件中心
+  }
 
   // eventName事件名-独一无二, fn订阅后执行的自定义行为
   on(eventName, fn) {
