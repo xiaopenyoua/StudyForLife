@@ -439,6 +439,12 @@ var obj2 = {
 
 1. [手写 Promise。](https://github.com/pro-collection/interview-question/issues/57)
 
+- Promise.all() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象，只有当所有 Promise 对象都成功时，才会成功，否则只要一个失败，就会失败。
+- Promise.race() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象，只要有一个 Promise 对象成功，就会成功，否则只要有一个 Promise 对象失败，就会失败。
+- Promise.allSettled() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象,当所有 Promise 都完成，无论成功还是失败，都会触发完成，返回描述每个 Promise 结果的对象数组。
+- Promise.any() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象，只要有一个 Promise 成功，就会成功.当所有输入 Promise 都被拒绝（包括传递了空的可迭代对象）时，它会以一个包含拒绝原因数组的 `AggregateError` 拒绝。
+-
+
 1. [实现 Promise.all 方法。](https://github.com/pro-collection/interview-question/issues/107)
 
 1. async / await
@@ -871,7 +877,7 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 [浏览器本身是不支持模块化的, webpack 是如何通过文件打包，让浏览器可以读取到前端各个模块的代码的](https://github.com/pro-collection/interview-question/issues/502)
 
-[Webpack vs Vite的核心差异](https://juejin.cn/post/7273427487588843581)
+[Webpack vs Vite 的核心差异](https://juejin.cn/post/7273427487588843581)
 
 ---
 
@@ -1117,7 +1123,7 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 
 [什么是跨域？为什么会出现跨域？如何解决跨域问题？](https://juejin.cn/post/7092022569276014623)
 
-[webpack proxy工作原理](https://github.com/febobo/web-interview/blob/master/docs/webpack/proxy.md)
+[webpack proxy 工作原理](https://github.com/febobo/web-interview/blob/master/docs/webpack/proxy.md)
 
 [jsonp 原理 是什么？](https://github.com/pro-collection/interview-question/issues/15)
 
