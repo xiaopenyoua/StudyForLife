@@ -1,52 +1,29 @@
-const arrayData = [
-  { id: 2, title: '中国', parent_id: 0 },
-  { id: 3, title: '广东省', parent_id: 2 },
-  { id: 4, title: '广州市', parent_id: 3 },
-  { id: 5, title: '天河区', parent_id: 4 },
-  { id: 6, title: '湖南省', parent_id: 2 },
-  { id: 1, title: '俄罗斯', parent_id: 0 }
-]
+function throttlo(fn, wait) {
+  let previous = Date.now(),
+    timer = null,
+    context,
+    args,
+    remainning
 
-function arrayToTree(tree, root) {
-  const result = []
-  const map = {}
+  return function () {
+    const now = Date.now()
+    context = this
+    args = arguments
+    remainning = wait - (now - previous)
 
-  for (const item of tree) {
-    map[item.id] = { ...item }
-  }
-
-  for (const item of tree) {
-    const { id, parent_id } = item
-
-    if (parent_id === root) {
-      result.push(map[id])
+    if (remainning <= 0) {
+      fn.apply(context, args)
+      previous = now
     } else {
-      map[parent_id].children
-        ? map[parent_id].children.push(map[id])
-        : (map[parent_id].children = [map[id]])
+      if (timer) {
+        clearTimeout(timer)
+      }
+
+      timer = setTimeout(() => {
+        fn.apply(context, args)
+        previous = Date.now()
+        timer = null
+      }, remainning)
     }
   }
-
-  return result
-}
-
-const tree = arrayToTree(arrayData, 0)
-console.log(tree)
-
-let obj = {
-  a: 1,
-  b: 2,
-  c: 3
-}
-
-obj.__proto__[Symbol.iterator] = function* () {
-  for (const key in this) {
-    if (obj.hasOwnProperty(key)) {
-      yield [key, this[key]]
-    }
-  }
-}
-
-for (const iterator of obj) {
-  console.log(iterator)
 }
