@@ -234,8 +234,6 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
     <button class="button" data-v-f61kqi1></button>
     ```
 
-  -
-
 - CSS Modules 则最早由 React 社区采用，使用 JavaScript 语言管理页面中的样式
 
   - 使用模块 module 来代替 scoped 属性，这会告诉 vue-template-compiler 和 vue-cli 的 webpack 配置使用适当的加载器来处理此部分样式并生成以下 CSS：

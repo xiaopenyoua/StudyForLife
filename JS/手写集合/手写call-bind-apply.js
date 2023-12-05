@@ -21,6 +21,7 @@ Function.prototype.myApply = function (context) {
   let result
   if (args) {
     result = eval('context[fn](' + args.toString() + ')') //得到"context.fn(arg1,arg2,arg3...)"这个字符串在，最后用eval执行
+    // result = context[fn](...args)
   } else {
     //没有传入参数直接执行
     result = context[fn]()
