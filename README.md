@@ -1184,12 +1184,49 @@ http 有哪些方法？
 [cdn 是什么？它的原理是什么？](https://github.com/pro-collection/interview-question/issues/297)
 
 [讲讲 304 协商缓存过程。](https://juejin.cn/post/6974529351270268958#heading-15)
+![Alt text](image-7.png)
+
+- **强制缓存** - 文件直接从本地缓存中获取，不需要发送请求。
+
+  - 如果 cache-control 与 expires 同时存在的话， cache-control 的优先级高于 expires
+  - **`Cache-Control`**
+    - `max-age` 设置缓存的最大过期时间
+    - `no-cache` 不用本地缓存，正常的向服务端请求，服务端怎么处理我们不用管
+    - `no-store` 简单粗暴，直接从服务端拉取缓存
+    - `private` 只能允许最终用户做缓存，最终用户即电脑、手机等等
+    - `public` 允许中间路由或中间代理做缓存
+  - **`Expires`**
+
+- **协商缓存** - 它是一种**服务端的缓存策略**，即通过服务端来判断某件事情是不是可以被缓存。服务端判断客户端的资源，是否和服务端资源一样，如果一致则返回 304 ，反之返回 200 和最新的资源。
+  - 当响应头部 Response Headers 同时存在 Last-Modified 和 Etag 的值时，会优先使用 Etag ；
+  - Last-Modified 只能精确到秒级；
+  - 如果资源被重复生成，而内容不变，则 Etag 更精确
+  - **`Last-Modified`** --- **`If-Modified-Since`**
+    ![Alt text](image-9.png)
+  - **`Etag`** --- **`If-None-Match`**
+    ![Alt text](image-8.png)
 
 浏览器有哪些缓存？[localStorage、sessionStorage、cookie 的、session 的区别是什么？](https://github.com/pro-collection/interview-question/issues/104)
+
+- `cookie` 的生命周期由 `Expires` 和 `Max-Age` 两个属性控制。当设置了 `Expires` 属性时，`cookie` 的生命周期为设置的过期时间；当设置了 `Max-Age` 属性时，`cookie` 的生命周期为设置的秒数
+
+[刷新操作方式，对缓存的影响](https://juejin.cn/post/6974529351270268958#heading-27)
+
+- 正常操作
+  - 定义： 地址栏输入 url ，跳转链接，前进后退等。
+  - 对缓存的影响： 强制缓存有效，协商缓存有效。
+- 手动刷新 `F5`
+  - 强制缓存失效，协商缓存有效。
+- 强制刷新 `ctrl` + `F5`
+  - 强制缓存失效，协商缓存失效。
 
 [常见的请求头和响应头](https://juejin.cn/post/6974529351270268958#heading-12)
 
 [http2 多路复用是什么, 原理是什么](https://github.com/pro-collection/interview-question/issues/529)
+
+- 帧和流
+- 流的优先级
+- 头部压缩
 
 [http1.1 的 keep-alive 和 http2 的多路复用 有什么区别](https://github.com/pro-collection/interview-question/issues/597)
 
