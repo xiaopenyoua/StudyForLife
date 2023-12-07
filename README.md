@@ -180,6 +180,16 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 
 14. [CSS Grid 布局](https://github.com/pro-collection/interview-question/issues/420)
 
+- 响应式
+
+  ```
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 10px;
+  }
+  ```
+
 - 容器属性
   ![Alt text](image-3.png)
 
