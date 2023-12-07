@@ -555,6 +555,32 @@ var obj2 = {
 
 [axios 是如何区分是 nodejs 环境还是 浏览器环境 的](https://github.com/pro-collection/interview-question/issues/574)
 
+1. `js` 语法中 `?.` 和 `??` 的含义
+
+- `??` - **空值合并操作符**
+  - 只有当左侧为 `null` 和 `undefined` 时，才会返回右侧的数
+  - 与逻辑或操作符（`||`）不同，逻辑或操作符会在左侧操作数为假值时返回右侧操作数
+- `?.` - **可选链操作符**
+
+  - 允许你安全地访问一个对象中可能不存在的属性或方法，而不会抛出错误。
+
+  ```
+  let user = {
+  name: "Alice",
+  address: {
+    city: "Beijing",
+    zip: "100000"
+  }
+  };
+
+  // 使用 . 操作符访问 user.address.street 会抛出错误，因为 user.address 没有 street 属性
+  console.log(user.address.street); // TypeError: Cannot read property 'street' of undefined
+
+  // 使用 ?. 操作符访问 user.address.street 会返回 undefined，不会抛出错误
+  console.log(user.address?.street); // undefined
+
+  ```
+
 ---
 
 # Vue
