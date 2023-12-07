@@ -281,7 +281,21 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 - `postcss-nested` - 允许使用嵌套的 CSS
 - `postcss-modules` - 可以将样式文件转换为 CSS Modules 格式
 
-21. [1px(线条/边框) 不同机型上显示粗细不同](https://blog.csdn.net/m0_57033755/article/details/134332547)
+21. postcss css 模块化 和 css-loader 模块化有什么区别？
+
+PostCSS 的 CSS 模块化和 css-loader 的模块化是两种不同的概念和实现方式。
+
+- CSS 模块化 (PostCSS): CSS 模块化是指使用 PostCSS 插件或工具来实现将 CSS 代码拆分为独立的模块，以解决样式冲突和提供更好的可维护性和代码复用性。通过使用类似于 CSS Modules 的功能，每个模块都有自己的作用域，样式定义不会影响其他模块，同时还可以通过类似于变量、嵌套、Mixin 等功能来增强 CSS 的编写能力。CSS 模块化通常需要使用 PostCSS 插件，如 postcss-modules、css-modules 等。
+
+- CSS 模块化 (css-loader): `css-loader` 是 Webpack 生态系统中的一个模块化工具，用于处理 CSS 文件。它的模块化功能是通过将 CSS 文件转换为 JavaScript 模块来实现的。每个 CSS 类名都被转换为一个唯一的标识符，以确保样式的唯一性和隔离性。在使用 css-loader 时，需要将 CSS 文件引入 JavaScript 模块中，并通过 JavaScript 代码来操作样式。
+
+- 区别：
+  - PostCSS 的 CSS 模块化是在 CSS 层面上进行的，通过插件的方式对 CSS 代码进行拆分和处理，提供更好的作用域隔离和编写能力。
+  - css-loader 的模块化是在构建工具层面上进行的，将 CSS 文件转换为 JavaScript 模块，通过 JavaScript 代码来操作样式。
+  - PostCSS 的 CSS 模块化更加灵活，可以根据项目需求选择和定制相应的插件来实现不同的功能。
+  - css-loader 的模块化是集成在 Webpack 构建流程中的一部分，与模块化开发紧密结合，适用于前端项目的构建和打包过程。
+
+22. [1px(线条/边框) 不同机型上显示粗细不同](https://blog.csdn.net/m0_57033755/article/details/134332547)
 
 # JavaScript
 
@@ -289,9 +303,78 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 
 2. [js 如何实现继承？](https://github.com/pro-collection/interview-question/issues/31)
 
+- **通过原型链实现继承**: 可以继承父类的原型属性，缺点：无法向父类构造函数传参,继承的属性都是原型属性，不能继承私有属性
+
+  ```
+  /*通过原型链实现继承*/
+  function Parent2(){
+      this.name='parent2'
+  }
+
+  function Child2(){
+      this.type='child2'
+  }
+
+  Child2.prototype=new Parent2();
+  console.log(new Child2());
+  ```
+
+- **借用构造函数继承** - 缺点：父类原型链上的东西并没有被继承；
+
+  ```
+  /*借助构造函数实现继承*/
+  function Parent(name) {
+      this.name = name;
+      this.getName = function () {
+          console.log(this.name);
+      }
+  }
+
+  function Child(name) {
+      Parent.call(this, name);
+      this.type = 'child1'
+  }
+
+  let child = new Child('yanle');
+  child.getName();
+  console.log(child.type);
+  ```
+
+- **组合继承**
+
+  ```
+  /*组合方式*/
+  function Parent3(){
+      this.name='parent3';
+      this.arr=[1,2,3];
+  }
+
+  function Child3(){
+      Parent3.call(this);
+      this.type='child';
+  }
+
+  Child3.prototype=new Parent3();
+  var s3=new Child3();
+  var s4=new Child3();
+  s3.arr.push(4);
+  console.log(s3,s4);
+  ```
+
+- **extends**
+
 3. js 有哪些数据类型？
 
+- 基础数据类型: `number`,`boolean`,`string`,`undefined`,`null`,`Symbol`
+- 引用数据类型: `function`,`object`,`array`
+
 4. js 有哪些判断类型的方法？
+
+- typeof
+- instanceof
+- Object.prototype.toString.call(val)
+- constructor
+- Array.isArray()
 
 5. [如何判断一个变量是否数组？](https://github.com/pro-collection/interview-question/issues/431)
 
@@ -311,6 +394,8 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
 10. [对比 一下 var、const、let。](https://blog.csdn.net/xiewenhui111/article/details/113133330)
 
 11. ES next 新特性有哪些？
+
+- 解构，箭头函数, 类, 扩展运算符，对象字面量，Proxy
 
 12. [箭头函数和普通函数区别是什么？](https://github.com/pro-collection/interview-question/issues/103)
 
@@ -347,7 +432,7 @@ Person.prototype.say = ()=>{console.log(this.name)}
 - 类中的 this 总是指向调用它的对象
 - 构造函数中的 this 是指向实例的对象，而普通函数的 this 是指向 window。
 
-- 箭头函数的 this 总是指向外层非箭头函数的作用域的 this 指向 一层层向上找【箭头函数的外层如果有普通函数，那么箭头函数的 this 就是这个外层的普通函数的 this，箭头函数的外层如果没有普通函数，那么箭头函数的 this 就是全局变量。】
+- 箭头函数的 this 总是指向外层非箭头函数的作用域的 this 指向，一层层向上找【箭头函数的外层如果有普通函数，那么箭头函数的 this 就是这个外层的普通函数的 this，箭头函数的外层如果没有普通函数，那么箭头函数的 this 就是全局变量。】
 
   ```
   let obj = {
@@ -429,31 +514,32 @@ var obj2 = {
 
 15. [谈谈对闭包的理解？什么是闭包？闭包有哪些应用场景？闭包有什么缺点？如何避免闭包？](https://github.com/pro-collection/interview-question/issues/37)
 
-    1. 不使用 prototype 属性定义的对象方法，是静态方法，只能直接用类名进行调用！另外，此静态方法中无法使用 this 变量来调用对象其他的属性！
-    2. 使用 prototype 属性定义的对象方法，是非静态方法，只有在实例化后才能使用！其方法内部可以 this 来引用对象自身中的其他属性！
-    3. 闭包的实现原理，其实是利用了作用域链的特性
-    4. 作用
-       - 匿名自执行函数
-       - 结果缓存
-       - 封装
-       - 实现类和继承
-    5. 缺点
-       - 由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在 IE 中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
-       - 闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
+是函数和声明该函数的词法环境的组合。
 
-1. [谈谈对 js 事件循环的理解？](https://github.com/pro-collection/interview-question/issues/142)
+- 不使用 prototype 属性定义的对象方法，是静态方法，只能直接用类名进行调用！另外，此静态方法中无法使用 this 变量来调用对象其他的属性！
+- 使用 prototype 属性定义的对象方法，是非静态方法，只有在实例化后才能使用！其方法内部可以 this 来引用对象自身中的其他属性！
+- 闭包的**实现原理**，其实是利用了**作用域链**的特性
+- 作用
+  - 匿名自执行函数
+  - 结果缓存
+  - 封装
+  - 实现类和继承
+- 缺点
+  - 由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在 IE 中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+  - 闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
 
-1. [谈谈对 promise 理解？](https://github.com/febobo/web-interview/blob/master/docs/es6/promise.md)
+16.  [谈谈对 js 事件循环的理解？](https://github.com/pro-collection/interview-question/issues/142)
 
-1. [手写 Promise。](https://github.com/pro-collection/interview-question/issues/57)
+1.  [谈谈对 promise 理解？](https://github.com/febobo/web-interview/blob/master/docs/es6/promise.md)
+
+1.  [手写 Promise。](https://github.com/pro-collection/interview-question/issues/57)
 
 - Promise.all() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象，只有当所有 Promise 对象都成功时，才会成功，否则只要一个失败，就会失败。
 - Promise.race() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象，只要有一个 Promise 对象成功，就会成功，否则只要有一个 Promise 对象失败，就会失败。
 - Promise.allSettled() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象,当所有 Promise 都完成，无论成功还是失败，都会触发完成，返回描述每个 Promise 结果的对象数组。
 - Promise.any() - 接受一个 Promise 可迭代对象（如数组）作为输入，返回一个新的 Promise 对象，只要有一个 Promise 成功，就会成功.当所有输入 Promise 都被拒绝（包括传递了空的可迭代对象）时，它会以一个包含拒绝原因数组的 `AggregateError` 拒绝。
--
 
-1. [实现 Promise.all 方法。](https://github.com/pro-collection/interview-question/issues/107)
+19. [实现 Promise.all 方法。](https://github.com/pro-collection/interview-question/issues/107)
 
 1. async / await
 
