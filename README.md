@@ -393,9 +393,9 @@ PostCSS 的 CSS 模块化和 css-loader 的模块化是两种不同的概念和�
 
 10. [对比 一下 var、const、let。](https://blog.csdn.net/xiewenhui111/article/details/113133330)
 
-11. ES next 新特性有哪些？
+11. [ES next 新特性有哪些？](https://blog.csdn.net/ekcchina/article/details/129174652)
 
-- 解构，箭头函数, 类, 扩展运算符，对象字面量，Proxy
+- [解构赋值](https://www.kancloud.cn/jony_ii/es6_/2248835)，箭头函数, 类, 扩展运算符[...]，[对象字面量](https://www.cnblogs.com/cag2050/p/6716498.html)，Proxy, [模板字符串]()
 
 12. [箭头函数和普通函数区别是什么？](https://github.com/pro-collection/interview-question/issues/103)
 
