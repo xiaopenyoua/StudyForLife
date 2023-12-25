@@ -191,10 +191,10 @@ IFC（Inline Formatting Contexts）内联格式化上下文，行内元素的格
   ```
 
 - 容器属性
-  ![Alt text](image-3.png)
+  ![Alt text](imgs/image-3.png)
 
 - 项目（item）属性
-  ![Alt text](image-4.png)
+  ![Alt text](imgs/image-4.png)
 
 15. [清除浮动的解决方案](https://github.com/pro-collection/interview-question/issues/55)
 
@@ -612,13 +612,13 @@ var obj2 = {
   虽然 `async/await` 可以大大简化异步操作的编写，但在某些特定的场景下，仍然需要使用 `Promise` 来处理更复杂的异步操作。
 
 - **`async` 、 `await` 如 何 执 行 多 个 异 步 任 务 ？**
-  ![](image-6.jpg)
+  ![](imgs/image-6.jpg)
 
 - **使用 `async` 、 `await` 有哪些注意事项？**
-  ![](image-7.jpg)
-  ![](image-8.jpg)
-  ![](image-9.jpg)
-  ![](image-10.jpg)
+  ![](imgs/image-7.jpg)
+  ![](imgs/image-8.jpg)
+  ![](imgs/image-9.jpg)
+  ![](imgs/image-10.jpg)
 
 1. [Typescript 中 type 和 interface 的区别是什么？](https://github.com/pro-collection/interview-question/issues/273)
 
@@ -791,7 +791,7 @@ vue2、vue3 的 diff 算法实现差异主要体现在：`处理完首尾节点�
 最后，会将 `新节点数组的 起始索引 向后移动。`
 
 剩余节点处理：
-![Alt text](image-1.png)
+![Alt text](imgs/image-1.png)
 
 ---
 
@@ -808,7 +808,7 @@ vue2、vue3 的 diff 算法实现差异主要体现在：`处理完首尾节点�
 - 此时我们只需要专注于 `source` 数组. 由于在处理 `source` 时，旧节点数组需要被卸载的已经卸载了，source 中的 `-1` 代表新元素需要挂载。
 - 判断是否移动【`新元素在旧节点数组的索引小于上一个元素在旧节点数组的索引`】：
   - `利用最长递增子序列来优化移动逻辑`: 首先通过最长递增子序列获取到升序列表存【 `存放的是新节点的索引 index` 】，然后从后遍历`新的一组子节点`,节点的索引与升序列表对比，如果对比上了说明不需要移动，否则需要移动。
-    ![Alt text](image-2.png)
+    ![Alt text](imgs/image-2.png)
     对比逻辑：
     - s: 指向升序列表尾，
     - 当前新节点索引
@@ -1138,7 +1138,7 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
 ---
 
 [TCP 四次挥手过程是怎样的？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#tcp-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84)
-![Alt text](image-5.png)
+![Alt text](imgs/image-5.png)
 
 - [为什么挥手需要四次？](https://xiaolincoding.com/network/3_tcp/tcp_interview.html#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8C%A5%E6%89%8B%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AC%A1)
 
@@ -1228,7 +1228,7 @@ react 中的事件都是合成事件，不是把每一个 dom 的事件绑定在
   - 客户端收到后，首先检查数字证书是否有效，如果有效，则再生成一个随机字符串，并使用证书中的公钥对随机字符串加密，再生成一个前面所有内容的 hash 值供服务器端检验，然后发送给服务器端。
   - 服务器端接收后，使用自己的私钥对数据解密，同时向客户端发送一个前面所有内容的 hash 值供客户端检验。
   - 这个时候双方都有了三个随机字符串，按照之前所约定的加密方法，使用这三个随机字符串生成一把共享秘钥。以后双方通信前，就使用这个秘钥对数据进行加密后再传输。
-    ![Alt text](image-6.png)
+    ![Alt text](imgs/image-6.png)
 - **发送 HTTP 请求**
 - **服务器处理请求并返回 HTTP 报文**
 - **断开连接**
@@ -1304,7 +1304,7 @@ http 有哪些方法？
 [cdn 是什么？它的原理是什么？](https://github.com/pro-collection/interview-question/issues/297)
 
 [讲讲 304 协商缓存过程。](https://juejin.cn/post/6974529351270268958#heading-15)
-![Alt text](image-7.png)
+![Alt text](imgs/image-7.png)
 
 - **强制缓存** - 文件直接从本地缓存中获取，不需要发送请求。
 
@@ -1322,9 +1322,9 @@ http 有哪些方法？
   - Last-Modified 只能精确到秒级；
   - 如果资源被重复生成，而内容不变，则 Etag 更精确
   - **`Last-Modified`** --- **`If-Modified-Since`**
-    ![Alt text](image-9.png)
+    ![Alt text](imgs/image-9.png)
   - **`Etag`** --- **`If-None-Match`**
-    ![Alt text](image-8.png)
+    ![Alt text](imgs/image-8.png)
 
 浏览器有哪些缓存？[localStorage、sessionStorage、cookie 的、session 的区别是什么？](https://github.com/pro-collection/interview-question/issues/104)
 
@@ -1360,7 +1360,7 @@ http 有哪些方法？
 - 构建依赖树
 - 根据依赖树下载完整的依赖资源
 - 生成 package-lock.json 文件
-  ![Alt text](image.png)
+  ![Alt text](imgs/image.png)
 
 2. [npm `--force` 和 `--legacy-peer-deps` 参数]()
 
